@@ -1,0 +1,58 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #fff;  /* Fondo blanco para la pantalla */
+  font-family: Arial, sans-serif;
+}
+
+.register-container {
+  background-color: #29b6f6;  /* Contenedor azul */
+  border-radius: 25px;
+  padding: 40px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 15px 20px;
+  border-radius: 50px;
+  border: none;
+  background-color: #f0f0f0;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: black;
+}
+
+input[type="button"].register-button {
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
+  background-color: #000;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+input[type="button"].register-button:hover {
+  background-color: #333;
+}

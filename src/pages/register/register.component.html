@@ -1,0 +1,15 @@
+<app-logo></app-logo>
+<div class="register-container">
+  <h1>Registro</h1>
+  <form [formGroup]="registerForm" class="registerForm">
+    <input id="firstName" type="text" formControlName="firstName" placeholder="Name" />
+    <input id="lastName" type="text" formControlName="lastName" placeholder="Last Name" />
+    <input id="dni" type="text" formControlName="dni" placeholder="DNI" />
+    <input id="companyName" type="text" formControlName="companyName" placeholder="Company Name" />
+    <input id="email" type="email" formControlName="email" placeholder="Email" />
+    <input id="confirmEmail" type="email" formControlName="confirmEmail" placeholder="Confirm Email" />
+    <input id="password" type="password" formControlName="password" placeholder="Password" />
+    <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm Password" />
+    <input type="button" value="Registrar" class="register-button" />
+  </form>
+</div>
