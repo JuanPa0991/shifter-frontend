@@ -14,11 +14,11 @@
   border: 3px solid black;
   border-radius: 50px;
   padding: 10px 20px;
-  background: black;
+  background: white;
 }
 
 .logo {
-  background-color: transparent; /* quitamos el color de fondo */
+  background-color: black; /* quitamos el color de fondo */
   border: 3px solid black;
   border-radius: 50%;
   width: 60px;
