@@ -4,17 +4,19 @@
 
     <h1>Iniciar Sesión</h1>
 
-    <form action="" class="loginForm">
+    <form [formGroup]="loginForm" class="loginForm" (ngSubmit)="onSubmit()">
 
         <label for="email" hidden></label>
-        <input type="email" name="email" id="email" placeholder="Correo electrónico">
+        <input type="email" formControlName="email" name="email" id="email" placeholder="Correo electrónico">
     
         <label for="password" hidden></label>
-        <input type="password" name="password" id="password" placeholder="Contraseña">
+        <input type="password" formControlName="password" name="password" id="password" placeholder="Contraseña">
     
-        <input type="button" value="Iniciar Sesión">
+        <button type="submit" [disabled]="!loginForm.valid" >Iniciar Sesión</button>
     </form>
     <br>
-    <a href="#DCrearCuenta">¿No estás registrado? Create una Cuenta</a>
+    <p class="register-text">
+        ¿No estás registrado? <a [routerLink]="['/register']">Create una Cuenta</a>
+    </p>
 
 </div>
