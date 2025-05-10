@@ -1,0 +1,100 @@
+/* Contenedor general */
+.container {
+  background-color: #d3d3d3;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+/* Barra de navegación */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid black;
+  border-radius: 50px;
+  padding: 10px 20px;
+  background: white;
+}
+
+.logo {
+  background-color: black; /* quitamos el color de fondo */
+  border: 3px solid black;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  overflow: hidden; /* asegura que la imagen no se desborde */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantiene proporción y cubre el espacio */
+}
+
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  font-size: 18px;
+}
+
+.help {
+  color: red;
+  font-weight: bold;
+}
+
+/* Contenido principal */
+.main-content {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.main-content h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.main-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Sección de botones */
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  margin-top: 40px;
+}
+
+/* Menú desplegable */
+.menu {
+  text-align: center;
+}
+
+.main-btn {
+  background-color: #39bdf8;
+  border: 3px solid black;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.submenu button {
+  background-color: #64f0f3;
+  border: none;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}

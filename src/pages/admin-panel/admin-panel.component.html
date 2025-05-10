@@ -1,0 +1,37 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">
+        <img src="assets/3.png" alt="Logo Shifter" />
+    </div>
+    <ul class="nav-links">
+      <li>Cuadrante</li>
+      <li>Usuarios</li>
+      <li class="help">Ayuda</li>
+    </ul>
+  </nav>
+
+  <main class="main-content">
+    <h1>Bienvenido, XXXXX</h1>
+    <h2>¿Qué quieres hacer hoy?</h2>
+
+    <div class="actions">
+      <div class="menu">
+        <button (click)="toggleMenu('cuadrantes')" class="main-btn">Cuadrantes</button>
+        <div class="submenu" *ngIf="activeMenu === 'cuadrantes'">
+          <button>Crear cuadrante</button>
+          <button>Historial de cuadrantes</button>
+        </div>
+      </div>
+
+      <div class="menu">
+        <button (click)="toggleMenu('usuarios')" class="main-btn">Usuarios</button>
+        <div class="submenu" *ngIf="activeMenu === 'usuarios'">
+          <button>Crear nuevo usuario</button>
+          <button>Mostrar Usuarios</button>
+          <button>Buscar Turnos</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
