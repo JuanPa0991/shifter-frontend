@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "shift_planner-frontend": {
+    "shifter-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/shift_planner-frontend",
+            "outputPath": "dist/shifter-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "shift_planer-frontend:build:production"
+              "buildTarget": "shifter-frontend:build:production"
             },
             "development": {
-              "buildTarget": "shift_planer-frontend:build:development"
+              "buildTarget": "shifter-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "683cfef6-bef9-4ff5-b9b8-f0dbc0d771bd"
   }
 }

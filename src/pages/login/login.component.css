@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #e0e0e0;
+    background-color: white;
     font-family: Arial, sans-serif;
 }
 
@@ -50,6 +50,7 @@ input::placeholder {
     color: black;
 }
 
+button[type="submit"],
 input[type="button"] {
     padding: 15px;
     border-radius: 50px;
@@ -60,11 +61,19 @@ input[type="button"] {
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
-input[type="button"]:hover {
+button[type="submit"]:hover:not(:disabled),
+input[type="button"]:hover:not(:disabled) {
     background-color: #333;
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:disabled,
+input[type="button"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
 
 .register-text {
