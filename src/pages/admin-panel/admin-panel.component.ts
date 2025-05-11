@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Importa esto
+import { CommonModule } from '@angular/common';
+import { LogoComponent } from '../../components/logo/logo.component';
 
 @Component({
   selector: 'app-admin-panel',
-  standalone: true, // 👈 Si es standalone, debes especificarlo
-  imports: [CommonModule], // 👈 Asegúrate de incluirlo aquí
+  standalone: true,
+  imports: [CommonModule, LogoComponent],
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
