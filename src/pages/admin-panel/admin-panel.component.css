@@ -17,23 +17,23 @@
   background: white;
 }
 
-.logo {
-  background-color: black; /* quitamos el color de fondo */
+/* .logo {
+  background-color: black;
   border: 3px solid black;
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  overflow: hidden; /* asegura que la imagen no se desborde */
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.logo img {
+/* .logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* mantiene proporción y cubre el espacio */
-}
+  object-fit: cover;
+} */
 
 
 .nav-links {

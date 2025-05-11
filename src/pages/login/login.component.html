@@ -6,13 +6,30 @@
 
     <form [formGroup]="loginForm" class="loginForm" (ngSubmit)="onSubmit()">
 
-        <label for="email" hidden></label>
-        <input type="email" formControlName="email" name="email" id="email" placeholder="Correo electrónico">
-    
-        <label for="password" hidden></label>
-        <input type="password" formControlName="password" name="password" id="password" placeholder="Contraseña">
-    
-        <button type="submit" [disabled]="!loginForm.valid" >Iniciar Sesión</button>
+        <div>
+            <label for="email" hidden></label>
+            <input type="email" formControlName="email" name="email" id="email" placeholder="Correo electrónico" required>
+            <!-- <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
+                Es necesario introducir un correo electrónico
+            </div> -->
+            <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" style="color: red; font-weight: 300;">
+                El correo electrónico no es válido
+            </div>
+        </div>
+
+        <div>
+            <label for="password" hidden></label>
+            <input type="password" formControlName="password" name="password" id="password" placeholder="Contraseña" required>
+            <div *ngIf="loginForm.get('password')?.errors?.['password'] && loginForm.get('password')?.touched" style="color: red; font-weight: 300;">
+                La contraseña debe tener al menos 6 caracteres
+            </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error" style="color: red; font-weight: 300;">
+            {{ errorMessage }}
+        </div>
+
+        <button type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
     </form>
     <br>
     <p class="register-text">
