@@ -1,0 +1,19 @@
+<div  class="w-full flex items-center justify-content-center ">
+  <div class="w-full flex items-center justify-content-center">
+    <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
+      <div class="text-center mb-5">
+        <div class="text-white text-3xl font-semibold mb-3">Crear nuevo grupo</div>
+        <span class="text-white">Introduce el nombre del grupo para crear uno nuevo</span>
+      </div>
+
+      <form [formGroup]="groupForm" class="space-y-5">
+        <p-floatlabel class="mt-5">
+          <input id="groupName" type="text" formControlName="groupName" pInputText class="w-full" required />
+          <label for="groupName">Nombre del grupo</label>
+        </p-floatlabel>
+
+        <button pButton type="submit" label="Crear" class="w-full mt-5" (click)="onRegister()"></button>
+      </form>
+    </div>
+  </div>
+</div>

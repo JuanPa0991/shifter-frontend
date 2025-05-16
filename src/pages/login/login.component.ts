@@ -5,6 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { AuthService } from '../../services/auth.service';
 import { ToolbarModule } from 'primeng/toolbar';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -12,7 +17,11 @@ import { ToolbarModule } from 'primeng/toolbar';
     CommonModule,
     ReactiveFormsModule,
     RouterLink,
-    LogoComponent
+    LogoComponent,
+    StyleClassModule,
+    ButtonModule, 
+    FloatLabelModule, 
+    InputTextModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
