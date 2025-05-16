@@ -1,0 +1,33 @@
+<!-- Barra de navegación -->
+<div class="logo-container logo-centered">
+  <app-logo></app-logo>
+</div>
+
+<!-- Contenido principal -->
+<p-table [value]="cuadrantes" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template #header>
+    <tr>
+      <th>ID_Cuadrante</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Grupo</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-product>
+    <tr>
+      <td>{{product.id}}</td>
+      <td>{{product.fechaInicio}}</td>
+      <td>{{product.fechaFin}}</td>
+      <td>{{product.grupo}}</td>
+      <td>
+        <button class="editar">Editar</button>
+        <button class="borrar">Borrar</button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- Botón de volver atrás -->
+<div class="volver-atras-container">
+  <button class="volver-atras">Volver Atrás</button>
+</div>
