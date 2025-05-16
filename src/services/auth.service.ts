@@ -45,15 +45,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
   }
-  private userName: string = '';
-
-  setUserName(name: string): void { // metodo para almacenar el nombre devuekto y poder renderizarlo en otras paginas
-    this.userName = name;
-    localStorage.setItem('userName', name);
-  }
-
-  getUserName(): string {
-    return this.userName || localStorage.getItem('userName') || ''; // metodo para recuperar el nombre almacenado y renderizarlo en otras paginas
-  }
+  
 
 }

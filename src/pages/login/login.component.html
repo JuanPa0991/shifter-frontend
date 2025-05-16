@@ -1,39 +1,38 @@
-<app-logo></app-logo>
+<div class="w-full flex items-center justify-content-center ">
+  <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
+    <div class="text-center mb-5">
+        <app-logo></app-logo>
+        <div class="text-white text-3xl font-semibold mb-3">Login</div>
+        <span class="text-white">Already not have an account?</span>
+        <a [routerLink]="['/register']" class="text-blue-200 ml-2 underline cursor-pointer">Register here</a>
+    </div>
 
-<div class="login-container">
+    <form [formGroup]="loginForm" class="space-y-5" (ngSubmit)="onSubmit()">
 
-    <h1>Iniciar Sesión</h1>
-
-    <form [formGroup]="loginForm" class="loginForm" (ngSubmit)="onSubmit()">
-
-        <div>
-            <label for="email" hidden></label>
-            <input type="email" formControlName="email" name="email" id="email" placeholder="Correo electrónico" required>
-            <!-- <div *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">
-                Es necesario introducir un correo electrónico
-            </div> -->
-            <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched" style="color: red; font-weight: 300;">
+        <p-floatlabel class=" mt-5">
+            <input id="email" formControlName="email" name="email" type="text" pInputText class="w-full " required />
+            <label for="email">Email</label>
+            <div *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.touched"
+                style="color: red; font-weight: 300;">
                 El correo electrónico no es válido
             </div>
-        </div>
+        </p-floatlabel>
 
-        <div>
-            <label for="password" hidden></label>
-            <input type="password" formControlName="password" name="password" id="password" placeholder="Contraseña" required>
-            <div *ngIf="loginForm.get('password')?.errors?.['password'] && loginForm.get('password')?.touched" style="color: red; font-weight: 300;">
+        <p-floatlabel class="mt-5">
+            <input type="password" formControlName="password" name="password" id="password" pInputText class="w-full"
+                required />
+            <label for="password">Contraseña</label>
+            <div *ngIf="loginForm.get('password')?.errors?.['password'] && loginForm.get('password')?.touched"
+                style="color: red; font-weight: 300;">
                 La contraseña debe tener al menos 6 caracteres
             </div>
-        </div>
+        </p-floatlabel>
 
         <div *ngIf="errorMessage" class="error" style="color: red; font-weight: 300;">
             {{ errorMessage }}
         </div>
 
-        <button type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+        <button pButton type="submit" label="Login" icon="pi pi-user" class="w-full mt-5" [disabled]="!loginForm.valid"></button>
     </form>
-    <br>
-    <p class="register-text">
-        ¿No estás registrado? <a [routerLink]="['/register']">Create una Cuenta</a>
-    </p>
-
+  </div>
 </div>

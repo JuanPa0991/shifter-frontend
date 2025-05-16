@@ -2,16 +2,24 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { LogoComponent } from '../../components/logo/logo.component';
 import { HttpClient } from '@angular/common/http';
+
 import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router ,RouterLink} from '@angular/router';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, LogoComponent],
+  imports: [ReactiveFormsModule, LogoComponent, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule,RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
+  
 })
 export class RegisterComponent { 
 
