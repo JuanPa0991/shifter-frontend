@@ -1,3 +1,6 @@
+<app-group></app-group> <!--Llamada al componente group para que funciones el popup de crear grupo-->
+<app-turn></app-turn> <!--Llamada al componente turn para que funciones el popup de crear turno-->
+
 <div class="container">
   <nav class="navbar">
     <div class="logo">
@@ -29,6 +32,9 @@
           <button>Crear nuevo usuario</button>
           <button>Mostrar Usuarios</button>
           <button>Buscar Turnos</button>
+          <button pButton type="button" icon="pi pi-plus" (click)="openGroupDialog()">Crear Grupo</button>
+          <button pButton type="button" icon="pi pi-plus" (click)="openTurnDialog()">Crear Turno</button>
+
         </div>
       </div>
     </div>
