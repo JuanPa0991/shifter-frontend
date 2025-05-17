@@ -1,32 +1,36 @@
+
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl, FormGroupName } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { Router ,RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 
 
-
 @Component({
-  selector: 'app-group',
-  standalone: true,
+  selector: 'app-turn',
   imports: [DialogModule, ReactiveFormsModule, InputTextModule, ButtonModule, FloatLabelModule],
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.css']
+  templateUrl: './turn.component.html',
+  styleUrl: './turn.component.css'
 })
-export class GroupComponent {
-
+export class TurnComponent {
   visible = false;
   showModal = false;
   private http = inject(HttpClient);
   private authService = inject(AuthService);
 
-  groupForm = new FormGroup({
-    groupName: new FormControl('')
+  turnForm = new FormGroup({
+    initDate: new FormControl(''),
+    endDate: new FormControl(''),
+    userName: new FormControl(''),
+    initHour: new FormControl(''),
+    endHour: new FormControl(),
+    userId: new FormControl(),
+    groupId: new FormControl()
   })
 
     constructor(private router: Router) {
@@ -52,14 +56,20 @@ export class GroupComponent {
   }
 
   onRegister() {
-    const formData = this.groupForm.value;
+    const formData = this.turnForm.value;
     this.visible=false;
     this.showModal=false;
     const payload = {
-      name: formData.groupName,
+      initDate: formData.initDate,
+      endDate: formData.endDate,
+      userName: formData.userName,
+      initHour: formData.initHour,
+      endHour: formData.endHour,
+      userId: formData.userId,
+      groupId: formData.groupId
     };
 
-    this.http.post('http://localhost:8080/api/group', payload).subscribe({
+    this.http.post('http://localhost:8080/api/turn', payload).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
         alert('Grupo registrado correctamente');

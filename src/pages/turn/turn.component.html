@@ -1,0 +1,45 @@
+<p-dialog header="Crear turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '25rem' }">
+     <form [formGroup]="turnForm" >
+    <span class="p-text-secondary block mb-8">
+        Escribe los datos para crear un nuevo turno.
+    </span>
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="initDate" class="font-semibold w-24">Init Date</label>
+        <input pInputText id="initDate" formControlName="initDate" type="date" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="endDate" class="font-semibold w-24">End Date</label>
+        <input pInputText id="endDate" formControlName="endDate" type="date" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="initHour" class="font-semibold w-24">Init Hour</label>
+        <input pInputText id="initHour" formControlName="initHour" type="time" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="endHour" class="font-semibold w-24">End Hour</label>
+        <input pInputText id="endHour" formControlName="endHour" type="time" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="userName" class="font-semibold w-24">User Name</label>
+        <input pInputText id="userName" formControlName="userName" type="text" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="idUser" class="font-semibold w-24">ID User</label>
+        <input pInputText id="idUser" formControlName="userId" type="number" class="flex-auto" />
+    </p-floatlabel>
+
+    <p-floatlabel class="flex items-center gap-4 mt-5">
+        <label for="idGroup" class="font-semibold w-24">ID Group</label>
+        <input pInputText id="idGroup" formControlName="groupId" type="number" class="flex-auto" />
+    </p-floatlabel>
+
+    <div class="flex justify-end gap-2 mt-5">
+        <p-button label="Save" (click)="onRegister()"></p-button>
+    </div>
+    </form>
+</p-dialog>
