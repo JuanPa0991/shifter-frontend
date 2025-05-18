@@ -1,43 +1,39 @@
-<app-group></app-group> <!--Llamada al componente group para que funciones el popup de crear grupo-->
-<app-turn></app-turn> <!--Llamada al componente turn para que funciones el popup de crear turno-->
+<app-group></app-group> <!-- Componente para el popup de crear grupo -->
+<app-turn></app-turn> <!-- Componente para el popup de crear turno -->
+<app-create-new-user></app-create-new-user>
 
-<div class="container">
-  <nav class="navbar">
-    <div class="logo">
+<div class="flex justify-content-center align-items-center min-h-screen custom-bg">
+  <div class="register-container p-6 rounded-lg shadow-lg w-96">
+    <div class="text-center mb-5">
       <app-logo></app-logo>
+      <div class="text-white text-3xl font-semibold mb-3">Panel administrador</div>
+      <nav class="text-white">
+        <span class="mr-4">Cuadrante</span>
+        <span class="mr-4">Usuarios</span>
+        <span>Ayuda</span>
+      </nav>
     </div>
-    <ul class="nav-links">
-      <li>Cuadrante</li>
-      <li>Usuarios</li>
-      <li class="help">Ayuda</li>
-    </ul>
-  </nav>
+    <h1 class="text-white">Bienvenido, {{userName}}</h1>
+    <h2 class="text-white">¿Qué quieres hacer hoy?</h2>
 
-  <main class="main-content">
-    <h1>Bienvenido, {{userName}}</h1> <!-- {{userName}} Aqui he metido la variable que se renderiza-->
-    <h2>¿Qué quieres hacer hoy?</h2>
-
-    <div class="actions">
-      <div class="menu">
-        <button (click)="toggleMenu('cuadrantes')" class="main-btn">Cuadrantes</button>
-        <div class="submenu" *ngIf="activeMenu === 'cuadrantes'">
-          <button>Crear cuadrante</button>
-          <button>Historial de cuadrantes</button>
-        </div>
-      </div>
-
-      <div class="menu">
-        <button (click)="toggleMenu('usuarios')" class="main-btn">Usuarios</button>
-        <div class="submenu" *ngIf="activeMenu === 'usuarios'">
-          <button>Crear nuevo usuario</button>
-          <button>Mostrar Usuarios</button>
-          <button>Buscar Turnos</button>
-          <button pButton type="button" icon="pi pi-plus" (click)="openGroupDialog()">Crear Grupo</button>
-          <button pButton type="button" icon="pi pi-plus" (click)="openTurnDialog()">Crear Turno</button>
-
-        </div>
+    <div class="menu">
+      <button (click)="toggleMenu('cuadrantes')" class="main-btn">Cuadrantes</button>
+      <div class="submenu" *ngIf="activeMenu === 'cuadrantes'">
+        <button>Crear cuadrante</button>
+        <button>Historial de cuadrantes</button>
       </div>
     </div>
-  </main>
+
+    <div class="menu">
+      <button (click)="toggleMenu('usuarios')" class="main-btn">Usuarios</button>
+      <div class="submenu" *ngIf="activeMenu === 'usuarios'">
+        <button pButton type="button" icon="pi pi-plus" (click)="openUserDialog()">Crear Usuario</button>
+        <button>Mostrar Usuarios</button>
+        <button>Buscar Turnos</button>
+        <button pButton type="button" icon="pi pi-plus" (click)="openGroupDialog()">Crear Grupo</button>
+        <button pButton type="button" icon="pi pi-plus" (click)="openTurnDialog()">Crear Turno</button>
+      </div>
+    </div>
+  </div>
 </div>
 
