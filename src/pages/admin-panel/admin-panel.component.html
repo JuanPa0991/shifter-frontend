@@ -1,6 +1,7 @@
 <app-group></app-group> <!-- Componente para el popup de crear grupo -->
 <app-turn></app-turn> <!-- Componente para el popup de crear turno -->
-<app-create-new-user></app-create-new-user>
+<app-create-new-user></app-create-new-user> <!-- Componente para el popup de crear user -->
+<app-book-turn></app-book-turn> <!-- Componente para el popup de buscar turno -->
 
 <div class="flex justify-content-center align-items-center min-h-screen custom-bg">
   <div class="register-container p-6 rounded-lg shadow-lg w-96">
@@ -29,7 +30,7 @@
       <div class="submenu" *ngIf="activeMenu === 'usuarios'">
         <button pButton type="button" icon="pi pi-plus" (click)="openUserDialog()">Crear Usuario</button>
         <button>Mostrar Usuarios</button>
-        <button>Buscar Turnos</button>
+        <button pButton type="button" icon="pi pi-plus" (click)="openBookTurnDialog()">Buscar Turno</button>
         <button pButton type="button" icon="pi pi-plus" (click)="openGroupDialog()">Crear Grupo</button>
         <button pButton type="button" icon="pi pi-plus" (click)="openTurnDialog()">Crear Turno</button>
       </div>
