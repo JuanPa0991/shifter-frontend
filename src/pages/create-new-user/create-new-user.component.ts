@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import { LogoComponent } from '../../components/logo/logo.component';
 import { HttpClient } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { inject } from '@angular/core';
@@ -10,10 +9,11 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-create-new-user',
- imports: [DialogModule,ReactiveFormsModule, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule],
+ imports: [DialogModule,ReactiveFormsModule, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule, CheckboxModule],
   templateUrl: './create-new-user.component.html',
   styleUrl: './create-new-user.component.css'
 })
@@ -31,6 +31,7 @@ export class CreateNewUserComponent {
     dni: new FormControl(''),
     companyName: new FormControl(''),
     email: new FormControl(),
+    isAdmin: new FormControl
    
   })
 
@@ -67,6 +68,7 @@ export class CreateNewUserComponent {
       dni: formData.dni,
       companyName: formData.companyName,
       email: formData.email,
+      isAdmin: formData.isAdmin
 
     };
 

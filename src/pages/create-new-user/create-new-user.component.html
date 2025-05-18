@@ -2,10 +2,7 @@
     <div class="w-full flex items-center justify-content-center ">
         <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
             <div class="text-center mb-5">
-
-
-            </div>
-
+        </div>
             <form [formGroup]="userNormalForm" class="space-y-5">
                 <p-floatlabel class=" mt-5">
                     <input id="firstName" type="text" formControlName="firstName" pInputText class="w-full " />
@@ -27,10 +24,13 @@
                     <label for="companyName">Company Name</label>
                 </p-floatlabel>
 
-                <p-floatlabel class=" mt-5">
+                <p-floatlabel class=" mt-5 mb-5">
                     <input id="email" type="email" formControlName="email" pInputText class="w-full" />
                     <label for="email">Email</label>
                 </p-floatlabel>
+
+                <p-checkbox formControlName="isAdmin" [binary]="true" id="isAdmin" />
+                <label for="isAdmin" class="ml-2">Is admin</label>
 
                 <button pButton type="submit" label="Register" icon="pi pi-user" class="w-full mt-5"
                     (click)="onRegister()"></button>
