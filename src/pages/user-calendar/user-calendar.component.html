@@ -1,0 +1,25 @@
+<header class="calendar-header">
+  <app-logo></app-logo>
+</header>
+
+<main class="calendar-main">
+  <div class="calendar-container">
+    <p-datepicker 
+      [(ngModel)]="date"
+      [inline]="true"
+      [showButtonBar]="true"
+      selectionMode="range"
+      class="custom-calendar"
+    ></p-datepicker>
+  </div>
+  <section class="user-panel">
+    <h2 class="welcome-msg">Bienvenido, {{nombre}}</h2>
+    <div class="profile-img-container">
+      <img [src]="profileImgUrl" alt="Foto de perfil" class="profile-img"/>
+    </div>
+    <button class="user-btn" (click)="onAddEvent()">Añadir Evento</button>
+    <button class="user-btn" (click)="onViewQuadrant()">Ver cuadrante</button>
+    <button class="user-btn" (click)="onHistory()">Histórico cuadrantes</button>
+    <button class="user-btn" (click)="onEditProfile()">Editar perfil</button>
+  </section>
+</main>

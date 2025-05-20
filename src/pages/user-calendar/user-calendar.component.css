@@ -1,0 +1,204 @@
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background: #181a20;
+    overflow: hidden;
+}
+body {
+    overflow-x: hidden;
+}
+
+.calendar-header {
+    width: 100%;
+    background: #181a20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0 0 0;
+    box-sizing: border-box;
+    min-height: 48px;
+}
+
+.calendar-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 120px);
+    width: 100%;
+    background: #181a20;
+    gap: 2vw;
+    box-sizing: border-box;
+}
+/* Ambos paneles: igual tamaño y alineados */
+.calendar-container,
+.user-panel {
+    width: 32vw;
+    min-width: 220px;
+    max-width: 370px;
+    height: 65vh;
+    min-height: 320px;
+    max-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+}
+.calendar-container {
+    background: linear-gradient(135deg, #23272f 80%, #22c55e 100%);
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(255, 213, 128, 0.18), 0 2px 16px rgba(35,39,47,0.18);
+    border: 2px solid #22c55e;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-calendar,
+.p-datepicker {
+    margin: 0 auto;
+    background: transparent !important;
+    border: none !important;
+    color: #ffd580 !important;
+    font-size: 0.95em;
+    width: 95% !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-datepicker table td > span {
+    border-radius: 8px !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+.p-datepicker table td.p-datepicker-today > span {
+    border: 2px solid #ffd580 !important;
+    color: #ffd580 !important;
+}
+
+.p-datepicker table td.p-highlight > span,
+.p-datepicker table td.p-highlight.p-datepicker-today > span {
+    background: #ffd580 !important;
+    color: #23272f !important;
+}
+
+.p-datepicker table td:not(.p-disabled):hover > span {
+    background: #353945 !important;
+    color: #ffd580 !important;
+}
+
+.p-datepicker-header {
+    background: transparent !important;
+    color: #ffd580 !important;
+    border-bottom: 1px solid #ffd580 !important;
+}
+
+.p-datepicker-title {
+    color: #ffd580 !important;
+}
+
+.p-datepicker-buttonbar {
+    background: transparent !important;
+    border-top: 1px solid #ffd580 !important;
+}
+
+.p-button {
+    background: #ffd580 !important;
+    color: #23272f !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: bold;
+}
+
+.p-button:enabled:hover {
+    background: #ffe6a3 !important;
+    color: #23272f !important;
+}
+
+/* Panel de usuario */
+.user-panel {
+    background: #23272f;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(34, 197, 94, 0.08), 0 2px 16px rgba(35,39,47,0.10);
+    border: 2px solid #22c55e;
+    padding: 18px 8px 12px 8px;
+    margin: 0;
+}
+
+.welcome-msg {
+    color: #22c55e;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.profile-img-container {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #22c55e;
+    background: #181a20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.user-btn {
+   width: 92%;
+    margin: 7px 0;
+    padding: 10px 0;
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+    color: #23272f;
+    border: none;
+    border-radius: 22px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 12px rgba(255,213,128,0.10);
+}
+
+.user-btn:hover {
+    background: #23272f;
+    color: #22c55e;
+    border: 2px solid #22c55e;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .calendar-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 1vh;
+        height: auto;
+    }
+    .calendar-container, .user-panel {
+        width: 95vw;
+        min-width: 0;
+        max-width: 98vw;
+        height: auto;
+        min-height: 180px;
+        max-height: none;
+        margin-bottom: 2vh;
+    }
+    .user-panel {
+        padding: 14px 4px 10px 4px;
+    }
+}

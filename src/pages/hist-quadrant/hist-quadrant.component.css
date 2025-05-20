@@ -1,33 +1,23 @@
 /* Fondo general */
 body, .container {
-    background-color: #23272f;
+    background-color: #181a20;
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
+    color: #f5f6fa;
 }
 
-
-.navbar .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: transparent;
-    margin-right: 0;
-}
+/* Logo centrado */
 .logo-centered {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 32px auto 24px auto;
+    margin: 40px auto 32px auto;
 }
 
 .logo-container app-logo,
 .logo-container img {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     object-fit: contain;
     display: block;
 }
@@ -42,93 +32,105 @@ body, .container {
 
 /* Tabla de cuadrantes */
 .p-table, table {
-    border-radius: 25px;
+    border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-    background: #fff;
-    width: 60vw;
-    margin: 0 auto 30px auto;
-    font-size: 1.1em;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.25);
+    background: #23272f;
+    width: 65vw;
+    margin: 0 auto 40px auto;
+    font-size: 1.13em;
+    border: 2px solid #ffc966;
 }
 
 th, td {
     border: none;
-    padding: 18px 12px;
+    padding: 20px 14px;
     text-align: center;
     min-width: 120px;
 }
 
 th {
     font-weight: bold;
-    background: #23272f;
-    color: #fff;
-    font-size: 1.1em;
+    background: linear-gradient(90deg, #ffc966 0%, #ffb347 100%);
+    color: #23272f;
+    font-size: 1.13em;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #ffb347;
 }
 
 tr {
-    background: #f5f6fa;
-    transition: background 0.2s;
+    background: #23272f;
+    color: #f5f6fa;
+    transition: background 0.2s, color 0.2s;
 }
 
 tr:hover {
-    background: #e0e7ef;
+    background: #2d313a;
+    color: #ffd580;
 }
 
+td {
+    font-weight: 500;
+}
+
+/* Botones de acción */
 button.editar {
-    background: #ffc966;
+    background: linear-gradient(90deg, #ffd580 0%, #ffc966 100%);
     border: none;
-    padding: 8px 20px;
+    padding: 8px 22px;
     margin-right: 10px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
+    color: #23272f;
     transition: filter 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(255,201,102,0.15);
+    box-shadow: 0 2px 8px rgba(255,201,102,0.18);
 }
 
 button.editar:hover {
-    filter: brightness(0.95);
-    box-shadow: 0 4px 16px rgba(255,201,102,0.25);
+    filter: brightness(0.93);
+    box-shadow: 0 4px 16px rgba(255,201,102,0.28);
 }
 
 button.borrar {
-    background: #ff3333;
+    background: linear-gradient(90deg, #ff5e62 0%, #ff3333 100%);
     border: none;
-    padding: 8px 20px;
+    padding: 8px 22px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 6px;
     color: #fff;
     cursor: pointer;
     transition: filter 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(255,51,51,0.15);
+    box-shadow: 0 2px 8px rgba(255,51,51,0.18);
 }
 
 button.borrar:hover {
-    filter: brightness(0.9);
-    box-shadow: 0 4px 16px rgba(255,51,51,0.25);
+    filter: brightness(0.93);
+    box-shadow: 0 4px 16px rgba(255,51,51,0.28);
 }
 
 /* Botón volver atrás */
 .volver-atras-container {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 48px;
 }
 
 button.volver-atras {
-    background: #23272f;
-    color: #fff;
+    background: linear-gradient(90deg, #23272f 0%, #353945 100%);
+    color: #ffd580;
     font-weight: bold;
-    border: none;
+    border: 2px solid #ffd580;
     border-radius: 30px;
-    padding: 16px 60px;
-    font-size: 1.2em;
+    padding: 18px 64px;
+    font-size: 1.18em;
     cursor: pointer;
-    transition: background 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 12px rgba(35,39,47,0.15);
+    transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+    box-shadow: 0 2px 16px rgba(35,39,47,0.18);
 }
 
 button.volver-atras:hover {
-    background: #2c313a;
-    box-shadow: 0 4px 24px rgba(35,39,47,0.25);
+    background: #ffd580;
+    color: #23272f;
+    box-shadow: 0 4px 32px rgba(255,213,128,0.18);
 }
