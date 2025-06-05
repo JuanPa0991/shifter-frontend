@@ -1,0 +1,61 @@
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dialog-form .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dialog-form .section-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-dark, #222831);
+}
+
+.dialog-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.p-dialog .p-dialog-header {
+    background: var(--primary-color, #3a7bd5);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.p-dialog .p-dialog-content {
+    padding: 2rem 2rem 1.5rem 2rem;
+    background: #f8f9fa;
+}
+
+.p-inputtext,
+.p-dropdown,
+.p-multiselect {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-multiselect:focus {
+    border-color: var(--primary-color, #3a7bd5);
+    box-shadow: 0 0 0 1px var(--primary-light, #6fa1e8);
+}
+
+.p-button {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+}

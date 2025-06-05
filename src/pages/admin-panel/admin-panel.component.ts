@@ -7,11 +7,12 @@ import { GroupComponent } from '../group/group.component';
 import { TurnComponent } from '../turn/turn.component';
 import { CreateNewUserComponent } from '../create-new-user/create-new-user.component';
 import { BookTurnComponent } from '../book-turn/book-turn.component';
+import { SelectDatesPanelComponent } from '../select-dates-panel/select-dates-panel.component';
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [CommonModule, LogoComponent, GroupComponent, TurnComponent, CreateNewUserComponent, BookTurnComponent],
+  imports: [CommonModule, LogoComponent, GroupComponent, TurnComponent, CreateNewUserComponent, BookTurnComponent, SelectDatesPanelComponent],
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
@@ -21,7 +22,7 @@ export class AdminPanelComponent {
   @ViewChild(TurnComponent) turnComp!: TurnComponent; // Instancia de componenete turn parapoder usar el metodo de renderizacion de popup
   @ViewChild(CreateNewUserComponent) userComp!: CreateNewUserComponent; // Instancia de componenete user parapoder usar el metodo de renderizacion de popup
   @ViewChild(BookTurnComponent) bookTurnComp!: BookTurnComponent; // Instancia de componenete bookTurn parapoder usar el metodo de renderizacion de popup
-
+  @ViewChild(SelectDatesPanelComponent) selectDatesPanel!: SelectDatesPanelComponent; // Instancia de componente selectDates para poder usar el metodo de renderizacion de popup
 
 
   private authService = inject(AuthService); // Creando una instancia de Authservice para poder usar su metodos
@@ -49,7 +50,10 @@ export class AdminPanelComponent {
     this.bookTurnComp.showDialog();
   }
 
-
+  // metodo para abrir el panel de seleccion de fecha
+  openSelectDatePanel() {
+    this.selectDatesPanel.showDialog();
+  }
 
   toggleMenu(menu: string) {
     this.activeMenu = this.activeMenu === menu ? null : menu;

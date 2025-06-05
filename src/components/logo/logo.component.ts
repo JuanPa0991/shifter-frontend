@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logo',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './logo.component.css'
 })
 export class LogoComponent {
+
+  constructor(private router: Router) {}
+
+  redirectToAdminPanel() {
+    this.router.navigate(['/admin-panel']);
+  }
 
 }

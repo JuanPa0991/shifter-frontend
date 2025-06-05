@@ -1,2 +1,34 @@
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
+
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+body, :host {
+    background-color: var(--bg-main) !important;
+}
+.card, .register-container {
+    background: var(--bg-white) !important;
+    color: var(--primary-color) !important;
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid var(--border-main);
+}
+h1, h2, h3, label {
+    color: var(--primary-color) !important;
+}
+input, .p-inputtext {
+    color: var(--primary-color) !important;
+    border: 1.5px solid var(--primary-color) !important;
+    background: var(--bg-white) !important;
+}
+input:focus, .p-inputtext:focus {
+    border-color: var(--primary-dark) !important;
+}
+button, .p-button {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-white) !important;
+}
+button:hover, .p-button:hover {
+    background-color: var(--primary-dark) !important;
+}
