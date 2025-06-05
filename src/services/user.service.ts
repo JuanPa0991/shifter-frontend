@@ -5,6 +5,12 @@ import { Observable } from 'rxjs';
 export interface UserDTO {
   id: number;
   name: string;
+  lastName: string;
+  dni: string;
+  email: string;
+  companyName: string;
+  groupId: number;
+  isAdmin: boolean;
 }
 
 @Injectable({
@@ -12,11 +18,20 @@ export interface UserDTO {
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api'; 
+  private apiUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+
+  registrarUsuarioNormal(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user`, payload);
+  }
 
   getUsers(): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(`${this.apiUrl}/group`);
-}
+    return this.http.get<UserDTO[]>(`${this.apiUrl}/user`);
+  }
+
+  getUsersByGroupId(groupId: number): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(`${this.apiUrl}/user/byGroup?groupId=${groupId}`);
+  }
 }

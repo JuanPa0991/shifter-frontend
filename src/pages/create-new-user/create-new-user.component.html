@@ -1,28 +1,51 @@
-<p-dialog header="Crear Usuario" [modal]="true" [(visible)]="showModal" [style]="{ width: '28rem' }">
-    <form [formGroup]="userNormalForm" class="dialog-form">
-        <div class="form-section">
-            <label class="section-label" for="firstName">Nombre</label>
-            <input pInputText id="firstName" formControlName="firstName" />
-        </div>
-        <div class="form-section">
-            <label class="section-label" for="lastName">Apellidos</label>
-            <input pInputText id="lastName" formControlName="lastName" />
-        </div>
-        <div class="form-section">
-            <label class="section-label" for="dni">DNI</label>
-            <input pInputText id="dni" formControlName="dni" />
-        </div>
-        <div class="form-section">
-            <label class="section-label" for="companyName">Empresa</label>
-            <input pInputText id="companyName" formControlName="companyName" />
-        </div>
-        <div class="form-section">
-            <label class="section-label" for="email">Email</label>
-            <input pInputText id="email" formControlName="email" type="email" />
-        </div>
-        <div class="form-section">
-            <p-checkbox formControlName="isAdmin" [binary]="true" id="isAdmin"></p-checkbox>
-            <label for="isAdmin" class="ml-2">Es administrador</label>
+<p-dialog header="Crear Usuario" [modal]="true" [(visible)]="showModal" [style]="{ width: '25rem' }">
+    <div class="w-full flex items-center justify-content-center ">
+        <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
+            <div class="text-center mb-5">
+            </div>
+            <form [formGroup]="userNormalForm" class="space-y-5">
+                <p-floatlabel class=" mt-5">
+                    <input id="firstName" type="text" formControlName="firstName" pInputText class="w-full " />
+                    <label for="firstName">First Name</label>
+                </p-floatlabel>
+
+                <p-floatlabel class=" mt-5">
+                    <input id="lastName" type="text" formControlName="lastName" pInputText class="w-full" />
+                    <label for="lastName">Last Name</label>
+                </p-floatlabel>
+
+                <p-floatlabel class=" mt-5">
+                    <input id="dni" type="text" formControlName="dni" pInputText class="w-full" />
+                    <label for="dni">DNI</label>
+                </p-floatlabel>
+
+                <p-floatlabel class=" mt-5">
+                    <input id="companyName" type="text" formControlName="companyName" pInputText class="w-full" />
+                    <label for="companyName">Company Name</label>
+                </p-floatlabel>
+
+                <p-floatlabel class=" mt-5 mb-5">
+                    <input id="email" type="email" formControlName="email" pInputText class="w-full" />
+                    <label for="email">Email</label>
+                </p-floatlabel>
+
+                <p-float-label class="flex items-center gap-4 mt-5">
+                    <label for="groupName" class="font-semibold w-24">Group Name</label>
+                    <p-dropdown 
+                                [options]="groups" 
+                                formControlName="groupName" 
+                                optionLabel="name"
+                                placeholder="Selecciona un grupo">
+                    </p-dropdown>
+                </p-float-label>
+
+
+                <p-checkbox formControlName="isAdmin" [binary]="true" id="isAdmin" />
+                <label for="isAdmin" class="ml-2">Is admin</label>
+
+                <button pButton type="submit" label="Register" icon="pi pi-user" class="w-full mt-5"
+                    (click)="onRegister()"></button>
+            </form>
         </div>
         <div class="form-actions">
             <p-button label="Cancelar" styleClass="p-button-text" (click)="hideDialog()"></p-button>
