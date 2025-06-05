@@ -107,34 +107,34 @@ export class CreateQuadrantComponent implements AfterViewInit {
     }, 2000);
   }
 
-  // openCreateUser() {
-  //   console.log('Opening create user dialog');
-  //   if (this.createUserComponent) {
-  //     this.createUserComponent.showDialog();
-  //   } else {
-  //     console.error('Create user component not initialized');
-  //   }
-  // }
+  openCreateUser() {
+    console.log('Opening create user dialog');
+    if (this.createUserComponent) {
+      this.createUserComponent.showDialog();
+    } else {
+      console.error('Create user component not initialized');
+    }
+  }
 
-  // openUserManager() {
-  //   console.log('Opening user manager dialog');
-  //   if (this.userManagerComponent) {
-  //     this.userManagerComponent.showDialog();
-  //   } else {
-  //     console.error('User manager component not initialized');
-  //   }
-  // }
+  openUserManager() {
+    console.log('Opening user manager dialog');
+    if (this.userManagerComponent) {
+      this.userManagerComponent.showDialog();
+    } else {
+      console.error('User manager component not initialized');
+    }
+  }
 
-  // openCreateGroup() {
-  //   console.log('Opening create group dialog');
-  //   if (this.groupComponent) {
-  //     this.groupComponent.showDialog();
-  //   } else {
-  //     console.error('Group component not initialized');
-  //   }
-  // }
+  openCreateGroup() {
+    console.log('Opening create group dialog');
+    if (this.groupComponent) {
+      this.groupComponent.showDialog();
+    } else {
+      console.error('Group component not initialized');
+    }
+  }
 
-  // openGroupManager() {
-  //   console.log('Group manager not implemented yet');
-  // }
+  openGroupManager() {
+    console.log('Group manager not implemented yet');
+  }
 }

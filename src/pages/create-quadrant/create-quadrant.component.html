@@ -23,16 +23,20 @@
         <div class="action-buttons">
             <div class="button-group">
                 <p-button label="Crear Usuario" 
-                         icon="pi pi-user-plus">
+                         icon="pi pi-user-plus"
+                         (onClick)="openCreateUser()">
                 </p-button>
                 <p-button label="Buscar Usuarios" 
-                         icon="pi pi-search">
+                         icon="pi pi-search"
+                         (onClick)="openUserManager()">
                 </p-button>
                 <p-button label="Crear Grupo" 
-                         icon="pi pi-users">
+                         icon="pi pi-users"
+                         (onClick)="openCreateGroup()">
                 </p-button>
                 <p-button label="Buscar Grupos" 
-                         icon="pi pi-search">
+                         icon="pi pi-search"
+                         (onClick)="openGroupManager()">
                 </p-button>
                 <p-button label="Generar Cuadrante" 
                          icon="pi pi-check"
