@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuadrantsComponent } from './quadrants.component';
+import { DropDownTurnsComponent } from './drop-down-turns.component';
 
-describe('QuadrantsComponent', () => {
-  let component: QuadrantsComponent;
-  let fixture: ComponentFixture<QuadrantsComponent>;
+describe('DropDownTurnsComponent', () => {
+  let component: DropDownTurnsComponent;
+  let fixture: ComponentFixture<DropDownTurnsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QuadrantsComponent]
+      imports: [DropDownTurnsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(QuadrantsComponent);
+    fixture = TestBed.createComponent(DropDownTurnsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

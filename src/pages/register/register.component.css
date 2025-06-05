@@ -1,11 +1,167 @@
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
+/* Fondo azul para toda la página */
+body, :host {
+    background-color: #00adb5 !important;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Centrado vertical y horizontal del registro */
+.w-full.flex.items-center.justify-content-center {
+    min-height: 100vh;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    position: relative;
+}
+
+/* Logo encima del recuadro */
+.login-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: -60px;
+    left: 0;
+    z-index: 2;
+}
+
+.login-logo-container app-logo img,
+.login-logo-container app-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(0,173,181,0.18);
+    background: #fff;
+    padding: 10px;
+}
+
+/* Contenedor blanco para el formulario */
 .register-container {
-    max-width: 30vw;
-    border-radius: 35px;
-    border: 1px solid #666666;
-    box-shadow: 10px 10px 31px 1px rgba(51,51,51,0.75);
-    -webkit-box-shadow: 10px 10px 31px 1px rgba(51,51,51,0.75);
-    -moz-box-shadow: 10px 10px 31px 1px rgba(51,51,51,0.75);
+    background: #fff !important;
+    color: #00adb5 !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    border-radius: 32px;
+    padding: 2rem 2.5rem 1.5rem 2.5rem;
+    max-width: 480px;
+    width: 100%;
+    margin: 100px auto 0 auto;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.8s;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(40px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Títulos y textos en azul */
+.register-container .text-3xl,
+.register-container label,
+.register-container input,
+.register-container .text-white {
+    color: #00adb5 !important;
+}
+
+.text-center .text-3xl {
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.text-center span,
+.text-center a {
+    color: #00adb5 !important;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+/* Inputs */
+input[pInputText] {
+    color: #00adb5 !important;
+    border: 1.5px solid #00adb5 !important;
+    background: #fff !important;
+    border-radius: 10px !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.98rem;
+    margin-bottom: 0.2rem;
+    transition: border 0.2s;
+    height: 2.2rem;
+}
+
+input[pInputText]:focus {
+    border-color: #007b8a !important;
+    outline: none;
+}
+
+/* Reduce espacio entre campos */
+p-floatlabel {
+    margin-bottom: 0.5rem !important;
+}
+
+/* Botón de Register: azul con letras blancas */
+button[pButton] {
+    background-color: #00adb5 !important;
+    color: #fff !important;
+    border: none;
+    font-weight: 700;
+    border-radius: 10px;
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 8px rgba(0,173,181,0.10);
+    padding: 0.8rem 0;
+    font-size: 1.08rem;
+    margin-top: 1rem;
+}
+
+button[pButton]:hover {
+    background-color: #007b8a !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(0,123,138,0.18);
+}
+
+/* Mensajes de error */
+.error, .register-container .error {
+    color: #e53935 !important;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
+/* Enlaces */
+a {
+    color: #00adb5 !important;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+a:hover {
+    color: #007b8a !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .register-container {
+        max-width: 98vw;
+        padding: 1.2rem 0.5rem;
+    }
+    .login-logo-container {
+        top: -45px;
+    }
+    .login-logo-container app-logo img,
+    .login-logo-container app-logo {
+        width: 65px;
+        height: 65px;
+    }
 }

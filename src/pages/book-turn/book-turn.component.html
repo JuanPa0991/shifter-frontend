@@ -1,55 +1,40 @@
-<p-dialog header="Buscar Turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '25rem' }">
-    <div class="w-full flex items-center justify-content-center ">
-        <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
-            <div class="text-center mb-5">
-
-
+<p-dialog header="Buscar Turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '28rem' }">
+    <form [formGroup]="bookTurnForm" class="dialog-form">
+        <div class="form-section">
+            <label class="section-label" for="initDate">Fecha inicio</label>
+            <input pInputText id="initDate" formControlName="initDate" type="date" />
         </div>
-            <form [formGroup]="bookTurnForm" class="space-y-5">
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="initDate" class="font-semibold w-24">Init Date</label>
-                    <input pInputText id="initDate" formControlName="initDate" type="date" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="endDate" class="font-semibold w-24">End Date</label>
-                    <input pInputText id="endDate" formControlName="endDate" type="date" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="initHour" class="font-semibold w-24">Init Hour</label>
-                    <input pInputText id="initHour" formControlName="initHour" type="time" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="endHour" class="font-semibold w-24">End Hour</label>
-                    <input pInputText id="endHour" formControlName="endHour" type="time" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-float-label class="flex items-center gap-4 mt-5">
-                    <label for="groupName" class="font-semibold w-24">User Name</label>
-                    <app-user-drop-down></app-user-drop-down>
-                </p-float-label>
-
-                <p-float-label class="flex items-center gap-4 mt-5">
-                    <label for="groupName" class="font-semibold w-24">Group Name</label>
-                    <app-drop-down-groups></app-drop-down-groups>
-                </p-float-label>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="idUser" class="font-semibold w-24">ID User</label>
-                    <input pInputText id="idUser" formControlName="userId" type="number" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="idGroup" class="font-semibold w-24">ID Group</label>
-                    <input pInputText id="idGroup" formControlName="groupId" type="number" class="flex-auto" />
-                </p-floatlabel>
-
-                <div class="flex justify-end gap-2 mt-5">
-                    <p-button label="Book turn" (click)="onBookTurn()"></p-button>
-                </div>
-            </form>
+        <div class="form-section">
+            <label class="section-label" for="endDate">Fecha fin</label>
+            <input pInputText id="endDate" formControlName="endDate" type="date" />
         </div>
-    </div>
+        <div class="form-section">
+            <label class="section-label" for="initHour">Hora inicio</label>
+            <input pInputText id="initHour" formControlName="initHour" type="time" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="endHour">Hora fin</label>
+            <input pInputText id="endHour" formControlName="endHour" type="time" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="groupName">Grupo</label>
+            <app-drop-down-groups></app-drop-down-groups>
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="userName">Usuario</label>
+            <app-user-drop-down></app-user-drop-down>
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="userId">ID Usuario</label>
+            <input pInputText id="userId" formControlName="userId" type="number" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="groupId">ID Grupo</label>
+            <input pInputText id="groupId" formControlName="groupId" type="number" />
+        </div>
+        <div class="form-actions">
+            <p-button label="Cancelar" styleClass="p-button-text" (click)="hideDialog()"></p-button>
+            <p-button label="Buscar" icon="pi pi-search" (click)="onBookTurn()"></p-button>
+        </div>
+    </form>
 </p-dialog>

@@ -1,40 +1,121 @@
-<app-group></app-group> <!-- Componente para el popup de crear grupo -->
-<app-turn></app-turn> <!-- Componente para el popup de crear turno -->
-<app-create-new-user></app-create-new-user> <!-- Componente para el popup de crear user -->
-<app-book-turn></app-book-turn> <!-- Componente para el popup de buscar turno -->
+<app-group></app-group>
+<app-turn></app-turn>
+<app-create-new-user></app-create-new-user>
+<app-book-turn></app-book-turn>
+<app-select-dates-panel></app-select-dates-panel>
 
-<div class="flex justify-content-center align-items-center min-h-screen custom-bg">
-  <div class="register-container p-6 rounded-lg shadow-lg w-96">
-    <div class="text-center mb-5">
+<div class="admin-panel">
+  <header class="admin-header">
+    <div class="logo-section">
       <app-logo></app-logo>
-      <div class="text-white text-3xl font-semibold mb-3">Panel administrador</div>
-      <nav class="text-white">
-        <span class="mr-4">Cuadrante</span>
-        <span class="mr-4">Usuarios</span>
-        <span>Ayuda</span>
-      </nav>
     </div>
-    <h1 class="text-white">Bienvenido, {{userName}}</h1>
-    <h2 class="text-white">¿Qué quieres hacer hoy?</h2>
+    <div class="user-section">
+      <span class="welcome-text">Bienvenido, {{userName}}</span>
+      <div class="user-avatar">
+        <i class="pi pi-user"></i>
+      </div>
+    </div>
+  </header>
 
-    <div class="menu">
-      <button (click)="toggleMenu('cuadrantes')" class="main-btn">Cuadrantes</button>
-      <div class="submenu" *ngIf="activeMenu === 'cuadrantes'">
-        <button>Crear cuadrante</button>
-        <button>Historial de cuadrantes</button>
+  <nav class="main-nav">
+    <div class="nav-item" [class.active]="activeMenu === 'cuadrantes'" (click)="toggleMenu('cuadrantes')">
+      <i class="pi pi-calendar"></i>
+      <span>Cuadrantes</span>
+    </div>
+    <div class="nav-item" [class.active]="activeMenu === 'usuarios'" (click)="toggleMenu('usuarios')">
+      <i class="pi pi-users"></i>
+      <span>Usuarios</span>
+    </div>
+    <div class="nav-item" [class.active]="activeMenu === 'turnos'" (click)="toggleMenu('turnos')">
+      <i class="pi pi-clock"></i>
+      <span>Turnos</span>
+    </div>
+    <div class="nav-item" [class.active]="activeMenu === 'grupos'" (click)="toggleMenu('grupos')">
+      <i class="pi pi-th-large"></i>
+      <span>Grupos</span>
+    </div>
+  </nav>
+
+  <main class="admin-content">
+    <div *ngIf="activeMenu === 'cuadrantes'" class="panel-section">
+      <h2>Gestión de Cuadrantes</h2>
+      <div class="action-cards">
+        <div class="action-card" (click)="openSelectDatePanel()">
+          <i class="pi pi-plus-circle"></i>
+          <h3>Crear cuadrante</h3>
+          <p>Genera un nuevo cuadrante de turnos</p>
+        </div>
+        <div class="action-card" routerLink="/hist-quadrant">
+          <i class="pi pi-history"></i>
+          <h3>Historial</h3>
+          <p>Consulta cuadrantes anteriores</p>
+        </div>
       </div>
     </div>
 
-    <div class="menu">
-      <button (click)="toggleMenu('usuarios')" class="main-btn">Usuarios</button>
-      <div class="submenu" *ngIf="activeMenu === 'usuarios'">
-        <button pButton type="button" icon="pi pi-plus" (click)="openUserDialog()">Crear Usuario</button>
-        <button>Mostrar Usuarios</button>
-        <button pButton type="button" icon="pi pi-plus" (click)="openBookTurnDialog()">Buscar Turno</button>
-        <button pButton type="button" icon="pi pi-plus" (click)="openGroupDialog()">Crear Grupo</button>
-        <button pButton type="button" icon="pi pi-plus" (click)="openTurnDialog()">Crear Turno</button>
+    <div *ngIf="activeMenu === 'usuarios'" class="panel-section">
+      <h2>Gestión de Usuarios</h2>
+      <div class="action-cards">
+        <div class="action-card" (click)="openUserDialog()">
+          <i class="pi pi-user-plus"></i>
+          <h3>Crear Usuario</h3>
+          <p>Añade un nuevo usuario al sistema</p>
+        </div>
+        <div class="action-card">
+          <i class="pi pi-list"></i>
+          <h3>Ver Usuarios</h3>
+          <p>Lista de todos los usuarios</p>
+        </div>
       </div>
     </div>
-  </div>
+
+    <div *ngIf="activeMenu === 'turnos'" class="panel-section">
+      <h2>Gestión de Turnos</h2>
+      <div class="action-cards">
+        <div class="action-card" (click)="openTurnDialog()">
+          <i class="pi pi-plus"></i>
+          <h3>Crear Turno</h3>
+          <p>Define un nuevo tipo de turno</p>
+        </div>
+        <div class="action-card" (click)="openBookTurnDialog()">
+          <i class="pi pi-search"></i>
+          <h3>Buscar Turno</h3>
+          <p>Encuentra turnos específicos</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeMenu === 'grupos'" class="panel-section">
+      <h2>Gestión de Grupos</h2>
+      <div class="action-cards">
+        <div class="action-card" (click)="openGroupDialog()">
+          <i class="pi pi-plus"></i>
+          <h3>Crear Grupo</h3>
+          <p>Crea un nuevo grupo de usuarios</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!activeMenu" class="panel-section welcome-section">
+      <h2>Panel de administración</h2>
+      <p class="welcome-message">Selecciona una opción del menú para comenzar</p>
+      <div class="quick-stats">
+        <div class="stat-card">
+          <i class="pi pi-users"></i>
+          <h3>Usuarios</h3>
+          <span class="stat-number">24</span>
+        </div>
+        <div class="stat-card">
+          <i class="pi pi-calendar"></i>
+          <h3>Cuadrantes</h3>
+          <span class="stat-number">8</span>
+        </div>
+        <div class="stat-card">
+          <i class="pi pi-clock"></i>
+          <h3>Turnos</h3>
+          <span class="stat-number">5</span>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>
-

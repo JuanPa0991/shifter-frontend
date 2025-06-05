@@ -1,0 +1,65 @@
+<p-dialog header="Crear Turno" [(visible)]="visible" [modal]="true" styleClass="event-dialog">
+    <form [formGroup]="eventForm" class="event-form">
+        <div class="form-section">
+            <h3 class="form-section-title">Información del Turno</h3>
+
+            <div class="field">
+                <label>Fecha Inicio</label>
+                <p-calendar formControlName="startDate" [showTime]="true" [readonlyInput]="true" dateFormat="dd/mm/yy"
+                    [showIcon]="true"></p-calendar>
+            </div>
+
+            <div class="field">
+                <div class="flex align-items-center">
+                    <p-checkbox formControlName="enableMultiDay" [binary]="true" inputId="enableMultiDay">
+                    </p-checkbox>
+                    <label for="enableMultiDay" class="ml-2 cursor-pointer">
+                        Turno para múltiples días
+                    </label>
+                </div>
+                <small class="form-help-text">
+                    Activa esta opción si el turno se extiende por varios días
+                </small>
+            </div>
+
+            <div class="field" *ngIf="enableEndDate">
+                <label>Fecha Fin</label>
+                <p-calendar formControlName="endDate" [showTime]="true" dateFormat="dd/mm/yy" [showIcon]="true"
+                    [minDate]="eventForm.get('startDate')?.value">
+                </p-calendar>
+            </div>
+
+            <div class="field">
+                <label>Turno</label>
+                <p-dropdown formControlName="turn" [options]="turns" optionLabel="name" [showClear]="true"
+                    placeholder="Selecciona un turno">
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3 class="form-section-title">Asignación</h3>
+
+            <div class="field">
+                <label>Grupo</label>
+                <p-dropdown formControlName="group" [options]="groups" optionLabel="name" [showClear]="true"
+                    placeholder="Seleccionar Grupo">
+                </p-dropdown>
+            </div>
+
+            <div class="field">
+                <label>Usuarios</label>
+                <p-multiSelect formControlName="user" [options]="users" optionLabel="name" [showToggleAll]="true"
+                    [showHeader]="true" placeholder="Seleccionar Usuarios">
+                </p-multiSelect>
+            </div>
+        </div>
+    </form>
+
+    <ng-template pTemplate="footer">
+        <div class="form-actions">
+            <p-button label="Cancelar" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
+            <p-button label="Guardar" (onClick)="saveEvent()" [disabled]="!eventForm.valid"></p-button>
+        </div>
+    </ng-template>
+</p-dialog>

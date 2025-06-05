@@ -29,3 +29,34 @@ button, .p-button {
 button:hover, .p-button:hover {
     background-color: var(--primary-dark) !important;
 }
+
+.p-text-secondary,
+.p-dialog .p-dialog-content,
+span,
+label,
+.section-label {
+    color: var(--primary-color) !important;
+    font-weight: 500;
+}
+
+button, .p-button {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-white) !important;
+    border: none !important;
+}
+button:hover, .p-button:hover {
+    background-color: var(--primary-dark) !important;
+    color: var(--bg-white) !important;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+    background: rgba(255,255,255,0.7) !important;
+    color: var(--primary-color) !important;
+    border-radius: 50% !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon:hover {
+    background: #fff !important;
+    color: #111 !important;
+}

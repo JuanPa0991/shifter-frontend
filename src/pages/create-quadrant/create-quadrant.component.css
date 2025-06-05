@@ -1,0 +1,178 @@
+@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
+
+body, :host {
+    background-color: var(--bg-main) !important;
+}
+.card, .register-container {
+    background: var(--bg-white) !important;
+    color: var(--primary-color) !important;
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid var(--border-main);
+}
+h1, h2, h3, label {
+    color: var(--primary-color) !important;
+}
+input, .p-inputtext {
+    color: var(--primary-color) !important;
+    border: 1.5px solid var(--primary-color) !important;
+    background: var(--bg-white) !important;
+}
+input:focus, .p-inputtext:focus {
+    border-color: var(--primary-dark) !important;
+}
+button, .p-button {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-white) !important;
+}
+button:hover, .p-button:hover {
+    background-color: var(--primary-dark) !important;
+}
+.quadrant-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+}
+
+/* Header styles */
+.quadrant-header {
+    background-color: var(--primary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header-logo {
+    width: 50px;
+    height: 50px;
+}
+
+.header-logo app-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.header-dates {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+}
+
+.date-range {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Main content styles */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    margin-top: 80px; /* Igual que el height del header */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.calendar-wrapper {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Footer action buttons */
+.action-buttons {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+:host ::ng-deep {
+    .action-button {
+        width: auto;
+        margin-bottom: 0;
+        
+        &.p-button {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            
+            &:hover {
+                background: var(--primary-dark);
+            }
+        }
+        
+        &.primary {
+            background: var(--primary-dark);
+            font-weight: 600;
+        }
+    }
+    
+    .p-button {
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 8px;
+        
+        &:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        &.generate-button {
+            background-color: #4CAF50;
+            
+            &:hover {
+                background-color: #45a049;
+            }
+        }
+    }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .quadrant-content {
+        flex-direction: column;
+    }
+    
+    .actions-panel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .quadrant-header {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .button-group {
+        flex-wrap: wrap;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+}

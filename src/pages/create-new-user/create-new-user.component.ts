@@ -48,7 +48,7 @@ export class CreateNewUserComponent {
   }
 
   showDialog() {
-    this.open();
+    this.showModal=true;
     this.visible = true;
   }
 

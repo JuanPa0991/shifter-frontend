@@ -1,0 +1,11 @@
+<div class='demo-app'>
+    <div class='demo-app-main'>
+        <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+            <ng-template #eventContent let-arg>
+                <b>{{ arg.timeText }}</b>
+                <i>{{ arg.event.title }}</i>
+            </ng-template>
+        </full-calendar>
+        <app-add-calendar-event #addEventDialog (eventSaved)="addEvent($event)"></app-add-calendar-event>
+    </div>
+</div>

@@ -1,8 +1,9 @@
-
-<div  class="w-full flex items-center justify-content-center ">
+<div class="w-full flex items-center justify-content-center">
+  <div class="login-logo-container">
+    <app-logo></app-logo>
+  </div>
   <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
     <div class="text-center mb-5">
-      <app-logo></app-logo>
       <div class="text-white text-3xl font-semibold mb-3">Register</div>
       <span class="text-white">Already have an account?</span>
       <a [routerLink]="['/login']" class="text-blue-200 ml-2 underline cursor-pointer">Login here</a>
@@ -52,4 +53,4 @@
       <button pButton type="submit" label="Register" icon="pi pi-user" class="w-full mt-5" (click)="onRegister()"></button>
     </form>
   </div>
-</div> 
+</div>

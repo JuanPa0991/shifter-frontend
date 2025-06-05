@@ -1,0 +1,146 @@
+:root {
+    /* Primary Colors */
+    --primary-color: #00adb5;
+    --primary-light: #e0f7fa;
+    --primary-dark: #007b8a;
+
+    /* Secondary/Accent Colors */
+    --secondary-color: #00d2d3;
+    --secondary-light: #45eaeb;
+    --secondary-dark: #00a0a1;
+
+    /* Background Colors */
+    --bg-dark: #232931;
+    --bg-medium: #393e46;
+    --bg-light: #eeeeee;
+    --bg-main: #00adb5;
+
+    /* Text Colors */
+    --text-dark: #007b8a;
+    --text-medium: #4a4a4a;
+    --text-light: #ffffff;
+    --text-main: #00adb5;
+
+    /* Status Colors */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --error-color: #e53935;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2.5rem;
+
+    /* Border Radius */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 24px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+
+    /* Borders */
+    --border-main: #e0e0e0;
+}
+
+/* PrimeNG Component Overrides */
+
+/* Buttons */
+.p-button {
+    background: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius-md);
+    transition: all 0.2s ease;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+}
+
+.p-button:hover {
+    background: var(--primary-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.p-button:active {
+    transform: translateY(0);
+}
+
+/* Dialog */
+.p-dialog {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.p-dialog .p-dialog-header {
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.p-dialog .p-dialog-content {
+    padding: var(--spacing-lg);
+}
+
+/* Inputs */
+.p-inputtext,
+.p-dropdown,
+.p-multiselect {
+    border-radius: var(--border-radius-md);
+    border: 1px solid #ced4da;
+    transition: all 0.2s;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-multiselect:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-light);
+}
+
+/* Floating Label */
+.p-float-label label {
+    font-size: 0.85rem;
+}
+
+/* Cards and Containers */
+.card,
+.register-container {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    background: var(--bg-light);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Tables */
+.p-table {
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.p-table th {
+    background: var(--primary-color);
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+/* Dark Theme Updates */
+body.dark-theme {
+    --bg-light: var(--bg-medium);
+    --text-medium: var(--text-light);
+    background-color: var(--bg-dark);
+}
