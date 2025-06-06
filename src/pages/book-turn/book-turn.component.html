@@ -17,12 +17,34 @@
             <input pInputText id="endHour" formControlName="endHour" type="time" />
         </div>
         <div class="form-section">
-            <label class="section-label" for="groupName">Grupo</label>
-            <app-drop-down-groups></app-drop-down-groups>
+            <label class="section-label" for="userName">Usuario</label>
+            <p-dropdown 
+                id="userName"
+                formControlName="userName"
+                [options]="users"
+                optionLabel="firstName"
+                [filter]="true"
+                placeholder="Selecciona usuario"
+                class="w-full">
+                <ng-template let-user pTemplate="item">
+                    {{user.firstName}} {{user.lastName}}
+                </ng-template>
+            </p-dropdown>
         </div>
         <div class="form-section">
-            <label class="section-label" for="userName">Usuario</label>
-            <app-user-drop-down></app-user-drop-down>
+            <label class="section-label" for="groupId">Grupo</label>
+            <p-dropdown 
+                id="groupId"
+                formControlName="groupId"
+                [options]="groups"
+                optionLabel="groupName"
+                [filter]="true"
+                placeholder="Selecciona grupo"
+                class="w-full">
+                <ng-template let-group pTemplate="item">
+                    {{group.id}} - {{group.groupName}}
+                </ng-template>
+            </p-dropdown>
         </div>
         <div class="form-section">
             <label class="section-label" for="userId">ID Usuario</label>

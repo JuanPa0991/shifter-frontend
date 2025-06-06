@@ -1,4 +1,4 @@
-<p-dialog header="Crear turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '28rem' }">
+<p-dialog header="Crear turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '48rem' }">
     <form [formGroup]="turnForm" class="dialog-form">
         <div class="form-section">
             <label class="section-label" for="initDate">Fecha inicio</label>
@@ -8,9 +8,15 @@
             <label class="section-label" for="endDate">Fecha fin</label>
             <input pInputText id="endDate" formControlName="endDate" type="date" />
         </div>
+        <!-- Usuario: muestra nombre y apellido -->
         <div class="form-section">
             <label class="section-label" for="userName">Usuario</label>
-            <input pInputText id="userName" formControlName="userName" />
+            <p-dropdown id="userName" formControlName="userName" [options]="users" optionLabel="fullName"
+                [filter]="true" placeholder="Selecciona usuario" class="w-full">
+                <ng-template let-user pTemplate="item">
+                    {{user.name}} {{user.lastName}}
+                </ng-template>
+            </p-dropdown>
         </div>
         <div class="form-section">
             <label class="section-label" for="initHour">Hora inicio</label>
@@ -20,17 +26,28 @@
             <label class="section-label" for="endHour">Hora fin</label>
             <input pInputText id="endHour" formControlName="endHour" type="time" />
         </div>
+        <!-- ID Usuario: muestra el id -->
         <div class="form-section">
             <label class="section-label" for="userId">ID Usuario</label>
-            <input pInputText id="userId" formControlName="userId" type="number" />
+            <p-dropdown id="userId" formControlName="userId" [options]="users" optionLabel="id" [filter]="true"
+                placeholder="Selecciona ID usuario" class="w-full">
+                <ng-template let-user pTemplate="item">
+                    {{user.id}} - {{user.name}} {{user.lastName}}
+                </ng-template>
+            </p-dropdown>
         </div>
+        <!-- ID Grupo: muestra el nombre del grupo -->
         <div class="form-section">
             <label class="section-label" for="groupId">ID Grupo</label>
-            <input pInputText id="groupId" formControlName="groupId" type="number" />
+            <p-dropdown id="groupId" formControlName="groupId" [options]="groups" optionLabel="name"
+                [filter]="true" placeholder="Selecciona grupo" class="w-full">
+                <ng-template let-group pTemplate="item">
+                    {{group.id}} - {{group.name}}
+                </ng-template>
+            </p-dropdown>
         </div>
         <div class="form-actions">
-            <p-button label="Cancelar" styleClass="p-button-text" (click)="hideDialog()"></p-button>
-            <p-button label="Guardar" icon="pi pi-check" (click)="onRegister()"></p-button>
+            <p-button label="Guardar" icon="pi pi-save" (click)="onRegister()"></p-button>
         </div>
     </form>
 </p-dialog>

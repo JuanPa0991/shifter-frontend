@@ -8,6 +8,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { GroupEventsService } from '../../services/group-events.service';
 
 
 
@@ -29,7 +30,7 @@ export class GroupComponent {
     groupName: new FormControl('')
   })
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private groupEvents: GroupEventsService) {
      this.initForm();
   }
 
@@ -53,8 +54,8 @@ export class GroupComponent {
 
   onRegister() {
     const formData = this.groupForm.value;
-    this.visible=false;
-    this.showModal=false;
+    this.visible = false;
+    this.showModal = false;
     const payload = {
       name: formData.groupName,
     };
@@ -63,9 +64,7 @@ export class GroupComponent {
       next: (res) => {
         console.log('Registro exitoso:', res);
         alert('Grupo registrado correctamente');
-        
-        
- 
+        this.groupEvents.notifyGroupCreated(); // Notifica a los suscriptores
       },
       error: (err) => {
         console.error('Error en el registro de grupo:', err);

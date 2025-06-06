@@ -1,2 +1,36 @@
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
+
+.turn-list-container {
+    width: 100%;
+    max-width: 100vw;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+.turn-table {
+    width: 100%;
+    min-width: 1200px;
+    /* Ajusta según tus columnas */
+    border-collapse: collapse;
+}
+
+.turn-table th,
+.turn-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    .turn-table {
+        min-width: 900px;
+    }
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}

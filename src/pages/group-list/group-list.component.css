@@ -1,0 +1,42 @@
+.group-list-container {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.group-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.group-table th,
+.group-table td {
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem 1rem;
+    text-align: left;
+}
+
+.group-table th {
+    background: #f5f5f5;
+}
+
+.group-table th.acciones-col {
+    text-align: center;
+}
+
+.group-table td.acciones-col {
+    text-align: right;
+    width: 1%;
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+
+    .group-table th,
+    .group-table td {
+        padding: 6px 4px;
+        font-size: 14px;
+    }
+}

@@ -1,9 +1,6 @@
 @import "primeflex/primeflex.css";
 @import "primeicons/primeicons.css";
 
-@import "primeflex/primeflex.css";
-@import "primeicons/primeicons.css";
-
 body, :host {
     background-color: var(--bg-main) !important;
 }
@@ -16,9 +13,6 @@ body, :host {
 }
 h1, h2, h3, label {
     color: var(--primary-color) !important;
-}
-span {
-    color: #000 !important;
 }
 input, .p-inputtext {
     color: var(--primary-color) !important;

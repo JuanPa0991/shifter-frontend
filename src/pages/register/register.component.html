@@ -4,53 +4,53 @@
   </div>
   <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
     <div class="text-center mb-5">
-      <div class="text-white text-3xl font-semibold mb-3">Register</div>
-      <span class="text-white">Already have an account?</span>
-      <a [routerLink]="['/login']" class="text-blue-200 ml-2 underline cursor-pointer">Login here</a>
+      <div class="text-white text-3xl font-semibold mb-3">Crear Cuenta</div>
+      <span class="text-white">¿Ya tienes una cuenta?</span>
+      <a [routerLink]="['/login']" class="text-blue-200 ml-2 underline cursor-pointer">Inicia sesión</a>
     </div>
 
     <form [formGroup]="registerForm" class="space-y-5">
       <p-floatlabel class=" mt-5">
-        <input id="firstName" type="text" formControlName="firstName" pInputText class="w-full " />
-        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" formControlName="firstName" pInputText class="w-full "  required="required"/>
+        <label for="firstName">Nombre</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="lastName" type="text" formControlName="lastName" pInputText class="w-full" />
-        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" formControlName="lastName" pInputText class="w-full"  required="required"/>
+        <label for="lastName">Apellidos</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="dni" type="text" formControlName="dni" pInputText class="w-full" />
+        <input id="dni" type="text" formControlName="dni" pInputText class="w-full"  required="required"/>
         <label for="dni">DNI</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="companyName" type="text" formControlName="companyName" pInputText class="w-full" />
-        <label for="companyName">Company Name</label>
+        <input id="companyName" type="text" formControlName="companyName" pInputText class="w-full"  required="required"/>
+        <label for="companyName">Empresa</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="email" type="email" formControlName="email" pInputText class="w-full" />
+        <input id="email" type="email" formControlName="email" pInputText class="w-full"  required="required"/>
         <label for="email">Email</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="confirmEmail" type="email" formControlName="confirmEmail" pInputText class="w-full" />
-        <label for="confirmEmail">Confirm Email</label>
+        <input id="confirmEmail" type="email" formControlName="confirmEmail" pInputText class="w-full"  required="required"/>
+        <label for="confirmEmail">Confirma el email</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="password" type="password" formControlName="password" pInputText class="w-full" />
-        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" pInputText class="w-full"  required="required"/>
+        <label for="password">Contraseña</label>
       </p-floatlabel>
 
       <p-floatlabel class=" mt-5">
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" pInputText class="w-full" />
-        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" pInputText class="w-full" required="required" />
+        <label for="confirmPassword">Confirma la contraseña</label>
       </p-floatlabel>
 
-      <button pButton type="submit" label="Register" icon="pi pi-user" class="w-full mt-5" (click)="onRegister()"></button>
+      <button pButton type="submit" label="Registrar" icon="pi pi-user" class="w-full mt-5" (click)="onRegister()"></button>
     </form>
   </div>
 </div>

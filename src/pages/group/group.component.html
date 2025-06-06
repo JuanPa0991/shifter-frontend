@@ -1,12 +1,12 @@
-<p-dialog header="Crear grupo" [modal]="true" [(visible)]="showModal" [style]="{ width: '25rem' }">
-  <form [formGroup]="groupForm" >
-  <span class="p-text-secondary block mb-8">Escribe el nombre del grupo.</span>
-  <p-floatlabel class="flex items-center gap-4 mb-4">
-    <label for="groupName" class="font-semibold w-24">Group Name</label>
-    <input pInputText id="groupName" formControlName="groupName" class="flex-auto" autocomplete="off" />
-  </p-floatlabel>
-  <div class="flex justify-end gap-2">
-    <p-button label="Save"  (click)="onRegister()"></p-button>
-  </div>
+<p-dialog header="Crear Grupo" [modal]="true" [(visible)]="showModal" [style]="{ width: '24rem' }">
+  <form [formGroup]="groupForm" class="dialog-form">
+    <div class="form-section">
+      <label class="section-label" for="groupName">Nombre del grupo</label>
+      <div class="group-help-text">Escribe el nombre del grupo.</div>
+      <input pInputText id="groupName" formControlName="groupName" class="w-full" required/>
+    </div>
+    <div class="form-actions">
+      <p-button label="Guardar" icon="pi pi-save" (click)="onRegister()"></p-button>
+    </div>
   </form>
 </p-dialog>

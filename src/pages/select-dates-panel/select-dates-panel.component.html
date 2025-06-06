@@ -6,11 +6,11 @@
 
         <div class="form-group">
             <label for="initDate" class="section-label">Fecha inicio</label>
-            <input pInputText id="initDate" formControlName="initDate" type="date" class="w-full" />
+            <input pInputText id="initDate" formControlName="initDate" type="date" class="w-full" [min]="today" />
         </div>
         <div class="form-group">
             <label for="endDate" class="section-label">Fecha fin</label>
-            <input pInputText id="endDate" formControlName="endDate" type="date" class="w-full" />
+            <input pInputText id="endDate" formControlName="endDate" type="date" class="w-full" [min]="minEndDate" />
         </div>
 
         <div class="flex justify-end gap-2 mt-5">

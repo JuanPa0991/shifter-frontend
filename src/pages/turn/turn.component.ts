@@ -1,6 +1,12 @@
-
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl, FormGroupName } from '@angular/forms';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormControl,
+  FormGroupName,
+} from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
@@ -9,13 +15,21 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { DropdownModule } from 'primeng/dropdown';
+import { TurnEventsService } from '../../services/turn-event.service';
 
 @Component({
   selector: 'app-turn',
-  imports: [DialogModule, ReactiveFormsModule, InputTextModule, ButtonModule, FloatLabelModule],
+  imports: [
+    DialogModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    ButtonModule,
+    FloatLabelModule,
+    DropdownModule,
+  ],
   templateUrl: './turn.component.html',
-  styleUrl: './turn.component.css'
+  styleUrl: './turn.component.css',
 })
 export class TurnComponent {
   visible = false;
@@ -30,18 +44,39 @@ export class TurnComponent {
     initHour: new FormControl(''),
     endHour: new FormControl(),
     userId: new FormControl(),
-    groupId: new FormControl()
-  })
+    groupId: new FormControl(),
+  });
 
-    constructor(private router: Router) {
-     this.initForm();
+  @Output() turnSaved = new EventEmitter<any>();
+
+  users: any[] = [];
+  groups: any[] = [];
+
+  constructor(private router: Router, private turnEvents: TurnEventsService) {
+    this.initForm();
+    this.loadUsersAndGroups();
   }
 
-  private initForm () {
-    console.log("entrando")
+  private initForm() {
+    console.log('entrando');
   }
 
-   open() {
+  loadUsersAndGroups() {
+    this.http
+      .get<any[]>('http://localhost:8080/api/users')
+      .subscribe((users) => {
+        this.users = users.map((u) => ({
+          ...u,
+          fullName: `${u.name} ${u.lastName}`,
+        }));
+      });
+    this.http.get<any[]>('http://localhost:8080/api/groups').subscribe((groups) => {
+      this.groups = groups;
+      console.log('Grupos recibidos:', this.groups);
+    });
+  }
+
+  open() {
     this.showModal = true;
   }
 
@@ -57,8 +92,8 @@ export class TurnComponent {
 
   onRegister() {
     const formData = this.turnForm.value;
-    this.visible=false;
-    this.showModal=false;
+    this.visible = false;
+    this.showModal = false;
     const payload = {
       initDate: formData.initDate,
       endDate: formData.endDate,
@@ -66,21 +101,21 @@ export class TurnComponent {
       initHour: formData.initHour,
       endHour: formData.endHour,
       userId: formData.userId,
-      groupId: formData.groupId
+      groupId: formData.groupId,
     };
+
+    this.turnSaved.emit(payload);
 
     this.http.post('http://localhost:8080/api/turn', payload).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
-        alert('Grupo registrado correctamente');
-        
-        
- 
+        alert('Turno registrado correctamente');
+        this.turnEvents.notifyTurnCreated(); // Notifica a los suscriptores
       },
       error: (err) => {
-        console.error('Error en el registro de grupo:', err);
-        alert('Hubo un error al registrar grupo: ' + err.error.message);
-      }
+        console.error('Error en el registro de turno:', err);
+        alert('Hubo un error al registrar turno: ' + err.error.message);
+      },
     });
-  } 
+  }
 }

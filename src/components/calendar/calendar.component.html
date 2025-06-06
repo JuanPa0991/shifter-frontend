@@ -7,5 +7,6 @@
             </ng-template>
         </full-calendar>
         <app-add-calendar-event #addEventDialog (eventSaved)="addEvent($event)"></app-add-calendar-event>
+        <app-turn #turnDialog (turnSaved)="onTurnDialogSaved($event)"></app-turn>
     </div>
 </div>
