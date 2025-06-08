@@ -6,14 +6,19 @@
 
 <div class="admin-panel">
   <header class="admin-header">
-    <div class="logo-section">
-      <app-logo></app-logo>
-    </div>
-    <div class="user-section">
+    <div class="header-center">
+      <app-logo (click)="goToHome()"></app-logo>
       <span class="welcome-text">Bienvenido, {{userName}}</span>
-      <div class="user-avatar">
+    </div>
+    <div class="user-section" style="position: relative;">
+      <div class="user-avatar" (click)="toggleProfileMenu()" style="cursor:pointer;">
         <i class="pi pi-user"></i>
       </div>
+      <div *ngIf="showProfileMenu" class="profile-dropdown" (mouseleave)="showProfileMenu = false">
+        <button (click)="openUserSettings()">Ajustes</button>
+        <button (click)="logout()">Cerrar sesión</button>
+      </div>
+      <app-user-settings #userSettingsComp></app-user-settings>
     </div>
   </header>
 
@@ -37,6 +42,33 @@
   </nav>
 
   <main class="admin-content">
+    <div *ngIf="!activeMenu" class="panel-section welcome-section">
+      <h2>Panel de administración</h2>
+      <p class="welcome-message">Selecciona una opción del menú para comenzar</p>
+      <div class="dashboard-row">
+        <div class="quick-stats vertical">
+          <div class="stat-card">
+            <i class="pi pi-users"></i>
+            <h3>Usuarios</h3>
+            <span class="stat-number">24</span>
+          </div>
+          <div class="stat-card">
+            <i class="pi pi-calendar"></i>
+            <h3>Cuadrantes</h3>
+            <span class="stat-number">8</span>
+          </div>
+          <div class="stat-card">
+            <i class="pi pi-clock"></i>
+            <h3>Turnos</h3>
+            <span class="stat-number">5</span>
+          </div>
+        </div>
+        <div class="calendar-panel">
+          <app-calendar></app-calendar>
+        </div>
+      </div>
+    </div>
+
     <div *ngIf="activeMenu === 'cuadrantes'" class="panel-section">
       <h2>Gestión de Cuadrantes</h2>
       <div class="action-cards">
@@ -53,6 +85,7 @@
       </div>
     </div>
 
+    <!-- Usuarios -->
     <div *ngIf="activeMenu === 'usuarios'" class="panel-section">
       <h2>Gestión de Usuarios</h2>
       <div class="action-cards">
@@ -61,14 +94,11 @@
           <h3>Crear Usuario</h3>
           <p>Añade un nuevo usuario al sistema</p>
         </div>
-        <div class="action-card">
-          <i class="pi pi-list"></i>
-          <h3>Ver Usuarios</h3>
-          <p>Lista de todos los usuarios</p>
-        </div>
       </div>
+      <app-user-list></app-user-list>
     </div>
 
+    <!-- Turnos -->
     <div *ngIf="activeMenu === 'turnos'" class="panel-section">
       <h2>Gestión de Turnos</h2>
       <div class="action-cards">
@@ -83,8 +113,10 @@
           <p>Encuentra turnos específicos</p>
         </div>
       </div>
+      <app-turn-list></app-turn-list>
     </div>
 
+    <!-- Grupos -->
     <div *ngIf="activeMenu === 'grupos'" class="panel-section">
       <h2>Gestión de Grupos</h2>
       <div class="action-cards">
@@ -94,28 +126,7 @@
           <p>Crea un nuevo grupo de usuarios</p>
         </div>
       </div>
-    </div>
-
-    <div *ngIf="!activeMenu" class="panel-section welcome-section">
-      <h2>Panel de administración</h2>
-      <p class="welcome-message">Selecciona una opción del menú para comenzar</p>
-      <div class="quick-stats">
-        <div class="stat-card">
-          <i class="pi pi-users"></i>
-          <h3>Usuarios</h3>
-          <span class="stat-number">24</span>
-        </div>
-        <div class="stat-card">
-          <i class="pi pi-calendar"></i>
-          <h3>Cuadrantes</h3>
-          <span class="stat-number">8</span>
-        </div>
-        <div class="stat-card">
-          <i class="pi pi-clock"></i>
-          <h3>Turnos</h3>
-          <span class="stat-number">5</span>
-        </div>
-      </div>
+      <app-group-list></app-group-list>
     </div>
   </main>
 </div>

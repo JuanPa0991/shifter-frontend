@@ -8,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class UserManagerComponent {
 
+   visible = false;
+   showModal = false;
+
+    showDialog() {
+    this.showModal=true;
+    this.visible = true;
+  }
+
 }

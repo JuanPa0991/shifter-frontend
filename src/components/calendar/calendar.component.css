@@ -106,3 +106,14 @@ b {
     color: var(--text-medium);
     margin-top: 0.25rem;
 }
+
+.fc-toolbar-title,
+.fc .fc-toolbar-title {
+    text-transform: uppercase !important;
+    letter-spacing: 1px;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+    text-transform: uppercase !important;
+    letter-spacing: 1px;
+}

@@ -1,15 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl, FormGroupName, FormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { Router ,RouterLink} from '@angular/router';
-import { StyleClassModule } from 'primeng/styleclass';
+import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { GroupService } from '../../services/group.service';
-
+import { GroupEventsService } from '../../services/group-events.service';
 
 
 @Component({
@@ -25,21 +24,23 @@ export class GroupComponent {
   showModal = false;
   private http = inject(HttpClient);
   private authService = inject(AuthService);
-  private groupService: GroupService;
 
   groupForm = new FormGroup({
     groupName: new FormControl('')
-  })
+  });
 
-    constructor(private router: Router) {
-     this.initForm();
+  constructor(
+    private groupService: GroupService,
+    private groupEvents: GroupEventsService
+  ) {
+    this.initForm();
   }
 
-  private initForm () {
-    console.log("entrando")
+  private initForm() {
+    console.log("entrando");
   }
 
-   open() {
+  open() {
     this.showModal = true;
   }
 
@@ -55,21 +56,22 @@ export class GroupComponent {
 
   onRegister() {
     const formData = this.groupForm.value;
-    this.visible=false;
-    this.showModal=false;
+    this.visible = false;
+    this.showModal = false;
     const payload = {
-      name: formData.groupName,
+      name: formData.groupName
     };
 
-  this.groupService.registrarGrupo(payload).subscribe({
-  next: (res) => {
-    console.log('Registro exitoso:', res);
-    alert('Grupo registrado correctamente');
-  },
-  error: (err) => {
-    console.error('Error en el registro de grupo:', err);
-    alert('Hubo un error al registrar grupo: ' + err.error.message);
+    this.groupService.registrarGrupo(payload).subscribe({
+      next: (res) => {
+        console.log('Registro exitoso:', res);
+        alert('Grupo registrado correctamente');
+        this.groupEvents.notifyGroupCreated(); // Notifica a los suscriptores
+      },
+      error: (err) => {
+        console.error('Error en el registro de grupo:', err);
+        alert('Hubo un error al registrar grupo: ' + err.error.message);
+      }
+    });
   }
-});
-  } 
 }

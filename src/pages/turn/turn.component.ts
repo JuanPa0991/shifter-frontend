@@ -1,19 +1,17 @@
-
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { TurnEventsService } from '../../services/turn-event.service';
 import { UserDTO, UserService } from '../../services/user.service';
 import { GroupDTO, GroupService } from '../../services/group.service';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
-import { Subject, takeUntil } from 'rxjs';
-import { TurnService } from '../../services/turn.service';
+import { first, Subject, takeUntil } from 'rxjs';
+import { TurnDTO, TurnService } from '../../services/turn.service';
 
 @Component({
   selector: 'app-turn',
@@ -21,86 +19,54 @@ import { TurnService } from '../../services/turn.service';
   templateUrl: './turn.component.html',
   styleUrl: './turn.component.css'
 })
-export class TurnComponent implements OnInit, OnDestroy {
+export class TurnComponent implements OnInit {
   users: UserDTO[] = [];
   groups: GroupDTO[] = [];
   visible = false;
   showModal = false;
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
-  private destroy$ = new Subject<void>()
 
-turnForm = new FormGroup({
-  initDate: new FormControl<string>(''),
-  endDate: new FormControl<string>(''),
-  userName: new FormControl<UserDTO | null>({ value: null, disabled: true }),
-  initHour: new FormControl<string>(''),
-  endHour: new FormControl<string>(''),
-  groupName: new FormControl<GroupDTO | null>(null)
-});
+  @Output() turnSaved = new EventEmitter<any>();
+
+  turnForm = new FormGroup({
+    id: new FormControl<number>(null),
+    initDate: new FormControl<string>(''),
+    endDate: new FormControl<string>(''),
+    initHour: new FormControl<string>(''),
+    endHour: new FormControl<string>(''),
+    user: new FormControl<UserDTO>({} as UserDTO),
+    group: new FormControl<GroupDTO>({} as GroupDTO),
+  });
 
   constructor(
     private readonly router: Router,
     private readonly userService: UserService,
     private readonly groupService: GroupService,
-    private readonly turnService: TurnService
+    private readonly turnService: TurnService,
+    private turnEvents: TurnEventsService
   ) {
     this.initForm();
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next()
-    this.destroy$.complete()
-  }
-
   ngOnInit(): void {
-    this.subscribeToInitialData();
-    this.setupGroupChangeListener();
+    this.subscribeToUsersGet();
   }
-
-  private subscribeToInitialData() {
-    this.groupService.getGroups().pipe(
-      takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.groups = data;
-      });
-  }
-
-  private setupGroupChangeListener() {
-  this.turnForm.get('groupName')?.valueChanges
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(group => {
-      const userControl = this.turnForm.get('userName');
-
-      if (group?.id) {
-        this.userService.getUsersByGroupId(group.id).subscribe(users => {
-          this.users = users;
-          userControl?.enable();
-        });
-      } else {
-        this.users = [];
-        userControl?.reset();
-        userControl?.disable();
-      }
-    });
-}
 
   private subscribeToUsersGet() {
     this.userService.getUsers().pipe(
-      takeUntil(this.destroy$)
+      first()
     ).subscribe(data => {
       this.users = data;
-    })
+    });
     this.groupService.getGroups().pipe(
-      takeUntil(this.destroy$)
+      first()
     ).subscribe(data => {
       this.groups = data;
-    })
+    });
 
   }
 
   private initForm() {
-    console.log("entrando")
+    console.log("entrando");
 
   }
 
@@ -113,30 +79,28 @@ turnForm = new FormGroup({
     this.visible = true;
   }
 
-  hideDialog() {
-    this.visible = false;
-  }
-
   onRegister() {
     const formData = this.turnForm.value;
     this.visible = false;
     this.showModal = false;
     const payload = {
+      id: formData.id,
       initDate: formData.initDate,
       endDate: formData.endDate,
-      userName: formData.userName,
+      userName: `${formData.user.name} ${formData.user.lastName}`,
       initHour: formData.initHour,
       endHour: formData.endHour,
-      userId: formData.userName?.id,
-      groupId: formData.groupName?.id
-    };
+      userId: +formData.user?.id,
+      groupId: +formData.group?.id
+    } as TurnDTO;
 
-
+    this.turnSaved.emit(payload);
 
     this.turnService.registrarTurno(payload).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
-        alert('Grupo registrado correctamente');
+        alert('Turno registrado correctamente');
+        this.turnEvents.notifyTurnCreated(); // Notifica a los suscriptores
       },
       error: (err) => {
         console.error('Error en el registro de turno:', err);

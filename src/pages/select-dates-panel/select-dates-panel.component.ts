@@ -34,10 +34,20 @@ export class SelectDatesPanelComponent {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
 
+  today: string = (() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  })();
+  
   @Output() dateSelected = new EventEmitter<{
     initDate: string;
     endDate: string;
   }>();
+
+  minEndDate: string = this.today;
 
   datePanelForm = new FormGroup({
     initDate: new FormControl(''),
@@ -46,6 +56,20 @@ export class SelectDatesPanelComponent {
 
   constructor(private router: Router) {
     this.initForm();
+
+    // Suscríbete a los cambios de initDate
+    this.datePanelForm.get('initDate')?.valueChanges.subscribe((value) => {
+      if (value) {
+        this.minEndDate = value;
+        // Si endDate es anterior a initDate, actualízala
+        const endDate = this.datePanelForm.get('endDate')?.value;
+        if (!endDate || endDate < value) {
+          this.datePanelForm.get('endDate')?.setValue(value);
+        }
+      } else {
+        this.minEndDate = this.today;
+      }
+    });
   }
 
   initForm() {

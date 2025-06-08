@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
+import { UserEventsService } from '../../services/user-events.service';
 import { UserService } from '../../services/user.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule } from '@angular/common';
@@ -23,10 +23,8 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './create-new-user.component.css'
 })
 export class CreateNewUserComponent implements OnInit, OnDestroy {
-  [x: string]: any;
-
   private authService = inject(AuthService);
-  private destroy$ = new Subject<void>()
+  private destroy$ = new Subject<void>();
   groups: GroupDTO[] = [];
 
 
@@ -40,38 +38,37 @@ export class CreateNewUserComponent implements OnInit, OnDestroy {
     companyName: new FormControl(''),
     email: new FormControl(),
     groupName: new FormControl(),
-    isAdmin: new FormControl
-
-  })
-
+    isAdmin: new FormControl()
+  });
 
   constructor(
     private router: Router,
+    private userEvents: UserEventsService,
     private readonly groupService: GroupService,
     private readonly userService: UserService
   ) {
     this.initForm();
   }
 
-    ngOnDestroy(): void {
-      this.destroy$.next()
-      this.destroy$.complete()
-    }
-  
-    ngOnInit(): void {
-      this.subscribeToUsersGet()
-    }
-  
-    private subscribeToUsersGet() {
-      this.groupService.getGroups().pipe(
-        takeUntil(this.destroy$)
-      ).subscribe(data => {
-        this.groups = data;
-      })
-    }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  ngOnInit(): void {
+    this.subscribeToUsersGet();
+  }
+
+  private subscribeToUsersGet() {
+    this.groupService.getGroups().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      this.groups = data;
+    });
+  }
 
   private initForm() {
-    console.log("entrando")
+    console.log("entrando");
   }
 
   open() {
@@ -79,7 +76,7 @@ export class CreateNewUserComponent implements OnInit, OnDestroy {
   }
 
   showDialog() {
-    this.showModal=true;
+    this.showModal = true;
     this.visible = true;
   }
 
@@ -101,7 +98,6 @@ export class CreateNewUserComponent implements OnInit, OnDestroy {
       email: formData.email,
       groupId: formData.groupName?.id,
       isAdmin: !!formData.isAdmin
-
     };
 
     this.userService.registrarUsuarioNormal(payload).subscribe({
@@ -109,6 +105,7 @@ export class CreateNewUserComponent implements OnInit, OnDestroy {
         console.log('Registro exitoso:', res);
         alert('Usuario normal registrado correctamente');
         this.authService.saveToken(payload.name as string);
+        this.userEvents.notifyUserCreated(); // Notifica a los suscriptores
       },
       error: (err) => {
         console.error('Error en el registro:', err);
@@ -116,6 +113,4 @@ export class CreateNewUserComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-
 }

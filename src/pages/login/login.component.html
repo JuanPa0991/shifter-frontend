@@ -4,9 +4,9 @@
             <div class="login-logo-container">
                 <app-logo></app-logo>
             </div>
-            <div class="text-white text-3xl font-semibold mb-3">Login</div>
-            <span class="text-white">Already not have an account?</span>
-            <a [routerLink]="['/register']" class="text-blue-200 ml-2 underline cursor-pointer">Register here</a>
+            <div class="text-white text-3xl font-semibold mb-3">Inicio de sesión</div>
+            <span class="text-white">¿No tienes cuenta?</span>
+            <a [routerLink]="['/register']" class="text-blue-200 ml-2 underline cursor-pointer">¡Registrate!</a>
         </div>
 
         <form [formGroup]="loginForm" class="space-y-5" (ngSubmit)="onSubmit()">
@@ -35,7 +35,7 @@
                 {{ errorMessage }}
             </div>
 
-            <button pButton type="submit" label="Login" icon="pi pi-user" class="w-full mt-5"
+            <button pButton type="submit" label="Iniciar Sesión" icon="pi pi-user" class="w-full mt-5"
                 [disabled]="!loginForm.valid"></button>
         </form>
     </div>

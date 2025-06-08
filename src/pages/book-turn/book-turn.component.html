@@ -1,58 +1,58 @@
-<p-dialog header="Buscar Turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '25rem' }">
-    <div class="w-full flex items-center justify-content-center ">
-        <div class="register-container p-6 rounded-lg shadow-lg w-full mt-5">
-            <div class="text-center mb-5">
-
-
-            </div>
-            <form [formGroup]="bookTurnForm" class="space-y-5">
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="initDate" class="font-semibold w-24">Init Date</label>
-                    <input pInputText id="initDate" formControlName="initDate" type="date" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="endDate" class="font-semibold w-24">End Date</label>
-                    <input pInputText id="endDate" formControlName="endDate" type="date" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="initHour" class="font-semibold w-24">Init Hour</label>
-                    <input pInputText id="initHour" formControlName="initHour" type="time" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-floatlabel class="flex items-center gap-4 mt-5">
-                    <label for="endHour" class="font-semibold w-24">End Hour</label>
-                    <input pInputText id="endHour" formControlName="endHour" type="time" class="flex-auto" />
-                </p-floatlabel>
-
-                <p-float-label class="flex items-center gap-4 mt-5">
-                    <label for="groupName" class="font-semibold w-24">User Name</label>
-                    <p-dropdown 
-                                [options]="users" 
-                                formControlName="userName" 
-                                optionLabel="name"
-                                placeholder="Selecciona un user">
-                    </p-dropdown>
-
-                </p-float-label>
-
-                <p-float-label class="flex items-center gap-4 mt-5">
-                    <label for="groupName" class="font-semibold w-24">Group Name</label>
-                    <p-dropdown 
-                                [options]="groups" 
-                                formControlName="groupName" 
-                                optionLabel="name"
-                                placeholder="Selecciona un grupo">
-                    </p-dropdown>
-                </p-float-label>
-
-
-
-                <div class="flex justify-end gap-2 mt-5">
-                    <p-button label="Book turn" (click)="onBookTurn()"></p-button>
-                </div>
-            </form>
+<p-dialog header="Buscar Turno" [modal]="true" [(visible)]="showModal" [style]="{ width: '28rem' }">
+    <form [formGroup]="bookTurnForm" class="dialog-form">
+        <div class="form-section">
+            <label class="section-label" for="initDate">Fecha inicio</label>
+            <input pInputText id="initDate" formControlName="initDate" type="date" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="endDate">Fecha fin</label>
+            <input pInputText id="endDate" formControlName="endDate" type="date" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="initHour">Hora inicio</label>
+            <input pInputText id="initHour" formControlName="initHour" type="time" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="endHour">Hora fin</label>
+            <input pInputText id="endHour" formControlName="endHour" type="time" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="userName">Usuario</label>
+            <p-dropdown
+                id="userName"
+                formControlName="userName"
+                [options]="users"
+                optionLabel="firstName"
+                [filter]="true"
+                placeholder="Selecciona usuario"
+                class="w-full">
+                <ng-template let-user pTemplate="item">
+                    {{user.firstName}} {{user.lastName}}
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="groupId">Grupo</label>
+            <p-dropdown
+                id="groupId"
+                formControlName="groupId"
+                [options]="groups"
+                optionLabel="groupName"
+                [filter]="true"
+                placeholder="Selecciona grupo"
+                class="w-full">
+                <ng-template let-group pTemplate="item">
+                    {{group.id}} - {{group.groupName}}
+                </ng-template>
+            </p-dropdown>
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="userId">ID Usuario</label>
+            <input pInputText id="userId" formControlName="userId" type="number" />
+        </div>
+        <div class="form-section">
+            <label class="section-label" for="groupId">ID Grupo</label>
+            <input pInputText id="groupId" formControlName="groupId" type="number" />
         </div>
         <div class="form-actions">
             <p-button label="Cancelar" styleClass="p-button-text" (click)="hideDialog()"></p-button>

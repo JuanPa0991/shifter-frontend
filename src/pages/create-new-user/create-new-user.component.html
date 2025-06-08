@@ -31,9 +31,9 @@
 
                 <p-float-label class="flex items-center gap-4 mt-5">
                     <label for="groupName" class="font-semibold w-24">Group Name</label>
-                    <p-dropdown 
-                                [options]="groups" 
-                                formControlName="groupName" 
+                    <p-dropdown
+                                [options]="groups"
+                                formControlName="groupName"
                                 optionLabel="name"
                                 placeholder="Selecciona un grupo">
                     </p-dropdown>
@@ -43,13 +43,11 @@
                 <p-checkbox formControlName="isAdmin" [binary]="true" id="isAdmin" />
                 <label for="isAdmin" class="ml-2">Is admin</label>
 
-                <button pButton type="submit" label="Register" icon="pi pi-user" class="w-full mt-5"
-                    (click)="onRegister()"></button>
+                <div class="form-actions">
+                  <p-button label="Registrar" icon="pi pi-user" (click)="onRegister()"></p-button>
+                </div>
             </form>
         </div>
-        <div class="form-actions">
-            <p-button label="Cancelar" styleClass="p-button-text" (click)="hideDialog()"></p-button>
-            <p-button label="Registrar" icon="pi pi-user" (click)="onRegister()"></p-button>
-        </div>
-    </form>
+
+    </div>
 </p-dialog>

@@ -1,15 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
-import { inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { Subject, takeUntil } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { UserDTO, UserService } from '../../services/user.service';
 import { GroupDTO, GroupService } from '../../services/group.service';
 import { TurnService } from '../../services/turn.service';
@@ -25,9 +21,7 @@ import { DropdownModule } from 'primeng/dropdown';
 export class BookTurnComponent implements OnInit, OnDestroy {
 
   users: UserDTO[] = [];
-  groups: GroupDTO[] = [];        
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
+  groups: GroupDTO[] = [];
   private destroy$ = new Subject<void>()
 
   bookTurnForm = new FormGroup({
@@ -45,7 +39,6 @@ export class BookTurnComponent implements OnInit, OnDestroy {
   showModal = false;
 
   constructor(
-    private readonly router: Router,
     private readonly userService: UserService,
     private readonly groupService: GroupService,
     private readonly turnService: TurnService) {
@@ -63,12 +56,12 @@ export class BookTurnComponent implements OnInit, OnDestroy {
 
   private subscribeToUsersGet() {
     this.userService.getUsers().pipe(
-      takeUntil(this.destroy$)
+      first()
     ).subscribe(data => {
       this.users = data;
     })
     this.groupService.getGroups().pipe(
-      takeUntil(this.destroy$)
+      first()
     ).subscribe(data => {
       this.groups = data;
     })
@@ -102,13 +95,10 @@ export class BookTurnComponent implements OnInit, OnDestroy {
       userName: formData.userName,
       initHour: formData.initHour,
       endHour: formData.endHour,
-      grouName: formData.groupName,
+      groupName: formData.groupName,
       userId: formData.userName?.id,
       groupId: formData.groupName?.id
     };
 
-
-
-    
   }
 }

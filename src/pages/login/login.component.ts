@@ -45,15 +45,13 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Formulario enviado:', this.loginForm.value);
-      // Aquí puedes agregar tu lógica de login
       const { email, password } = this.loginForm.value;
 
       this.authService.login(email, password).subscribe({
         next: (response) => {
-          // Guardamos el token recibido
+          // Guardamos el token y el nombre recibido
           this.authService.saveToken(response.token);
-          // Redirigimos al panel de administrador
+          localStorage.setItem('userName', response.name); // <-- Añade esta línea
           this.router.navigate(['/adminpannel']);
         },
         error: (error) => { // Si las credenciales no son correctas muestra un mensaje de error

@@ -12,7 +12,7 @@ export class LogoComponent {
   constructor(private router: Router) {}
 
   redirectToAdminPanel() {
-    this.router.navigate(['/admin-panel']);
+    this.router.navigate(['/adminpannel']);
   }
 
 }

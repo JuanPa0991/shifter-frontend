@@ -8,19 +8,22 @@ export interface GroupDTO {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroupService {
-
   private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
 
   registrarGrupo(payload: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/turn`, payload);
+    return this.http.post(`${this.apiUrl}/group`, payload);
   }
 
   getGroups(): Observable<GroupDTO[]> {
-    return this.http.get<GroupDTO[]>(`${this.apiUrl}/group`);
+    return this.http.get<GroupDTO[]>(`${this.apiUrl}/groups`);
+  }
+
+  deleteGroup(id: number) {
+    return this.http.delete(`${this.apiUrl}/groups/${id}`);
   }
 }

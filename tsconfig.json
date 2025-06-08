@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "strictNullChecks": false,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
