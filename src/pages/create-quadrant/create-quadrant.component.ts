@@ -8,26 +8,13 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SelectDatesPanelComponent } from '../select-dates-panel/select-dates-panel.component';
 import { LogoComponent } from '../../components/logo/logo.component';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-  FormGroupName,
-} from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
-import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarComponent } from '../../components/calendar/calendar.component';
-import { Calendar } from '@fullcalendar/core/index.js';
 import { AddCalendarEventComponent } from '../../components/add-calendar-event/add-calendar-event.component';
 import { CreateNewUserComponent } from '../create-new-user/create-new-user.component';
 import { UserManagerComponent } from '../admin-panel/user-manager/user-manager.component';

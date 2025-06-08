@@ -1,34 +1,32 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
 import { UserEventsService } from '../../services/user-events.service';
+import { UserService } from '../../services/user.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule } from '@angular/common';
+import { GroupDTO, GroupService } from '../../services/group.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-create-new-user',
-  imports: [
-    DialogModule,
-    ReactiveFormsModule,
-    StyleClassModule,
-    ButtonModule,
-    FloatLabelModule,
-    InputTextModule,
-    CheckboxModule,
-  ],
+  imports: [DialogModule, ReactiveFormsModule, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule, CheckboxModule, DropdownModule, CommonModule, FormsModule],
   templateUrl: './create-new-user.component.html',
-  styleUrl: './create-new-user.component.css',
+  styleUrl: './create-new-user.component.css'
 })
-export class CreateNewUserComponent {
-  private http = inject(HttpClient);
+export class CreateNewUserComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
+  private destroy$ = new Subject<void>();
+  groups: GroupDTO[] = [];
+
 
   visible = false;
   showModal = false;
@@ -39,15 +37,38 @@ export class CreateNewUserComponent {
     dni: new FormControl(''),
     companyName: new FormControl(''),
     email: new FormControl(),
-    isAdmin: new FormControl(),
+    groupName: new FormControl(),
+    isAdmin: new FormControl()
   });
 
-  constructor(private router: Router, private userEvents: UserEventsService) {
+  constructor(
+    private router: Router,
+    private userEvents: UserEventsService,
+    private readonly groupService: GroupService,
+    private readonly userService: UserService
+  ) {
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  ngOnInit(): void {
+    this.subscribeToUsersGet();
+  }
+
+  private subscribeToUsersGet() {
+    this.groupService.getGroups().pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      this.groups = data;
+    });
+  }
+
   private initForm() {
-    console.log('entrando');
+    console.log("entrando");
   }
 
   open() {
@@ -75,10 +96,11 @@ export class CreateNewUserComponent {
       dni: formData.dni,
       companyName: formData.companyName,
       email: formData.email,
-      isAdmin: formData.isAdmin,
+      groupId: formData.groupName?.id,
+      isAdmin: !!formData.isAdmin
     };
 
-    this.http.post('http://localhost:8080/api/userNormal', payload).subscribe({
+    this.userService.registrarUsuarioNormal(payload).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
         alert('Usuario normal registrado correctamente');
@@ -88,7 +110,7 @@ export class CreateNewUserComponent {
       error: (err) => {
         console.error('Error en el registro:', err);
         alert('Hubo un error al registrar: ' + err.error.message);
-      },
+      }
     });
   }
 }

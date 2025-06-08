@@ -13,7 +13,11 @@ export interface GroupDTO {
 export class GroupService {
   private apiUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  registrarGrupo(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/group`, payload);
+  }
 
   getGroups(): Observable<GroupDTO[]> {
     return this.http.get<GroupDTO[]>(`${this.apiUrl}/groups`);

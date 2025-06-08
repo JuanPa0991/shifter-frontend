@@ -9,6 +9,8 @@ export interface UserDTO {
   dni: string;
   email: string;
   companyName: string;
+  groupId: number;
+  isAdmin: boolean;
 }
 
 @Injectable({
@@ -16,15 +18,24 @@ export interface UserDTO {
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+
+  registrarUsuarioNormal(payload: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user`, payload);
+  }
 
   getUsers(): Observable<UserDTO[]> {
-    return this.http.get<UserDTO[]>(this.apiUrl);
+    return this.http.get<UserDTO[]>(`${this.apiUrl}/users`);
+  }
+
+  getUsersByGroupId(groupId: number): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(`${this.apiUrl}/user/byGroup?groupId=${groupId}`);
   }
 
   deleteUser(id: number) {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.apiUrl}/user/${id}`);
   }
 }

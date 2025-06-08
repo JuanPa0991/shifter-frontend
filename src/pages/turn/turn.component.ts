@@ -1,79 +1,73 @@
-import { Component, inject, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-  FormControl,
-  FormGroupName,
-} from '@angular/forms';
+import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { FormGroup, ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
-import { StyleClassModule } from 'primeng/styleclass';
+import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
 import { TurnEventsService } from '../../services/turn-event.service';
+import { UserDTO, UserService } from '../../services/user.service';
+import { GroupDTO, GroupService } from '../../services/group.service';
+import { CommonModule } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
+import { first, Subject, takeUntil } from 'rxjs';
+import { TurnDTO, TurnService } from '../../services/turn.service';
 
 @Component({
   selector: 'app-turn',
-  imports: [
-    DialogModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    FloatLabelModule,
-    DropdownModule,
-  ],
+  imports: [DialogModule, ReactiveFormsModule, InputTextModule, ButtonModule, FloatLabelModule, CommonModule, DropdownModule, FormsModule],
   templateUrl: './turn.component.html',
-  styleUrl: './turn.component.css',
+  styleUrl: './turn.component.css'
 })
-export class TurnComponent {
+export class TurnComponent implements OnInit {
+  users: UserDTO[] = [];
+  groups: GroupDTO[] = [];
   visible = false;
   showModal = false;
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
-
-  turnForm = new FormGroup({
-    initDate: new FormControl(''),
-    endDate: new FormControl(''),
-    userName: new FormControl(''),
-    initHour: new FormControl(''),
-    endHour: new FormControl(),
-    userId: new FormControl(),
-    groupId: new FormControl(),
-  });
 
   @Output() turnSaved = new EventEmitter<any>();
 
-  users: any[] = [];
-  groups: any[] = [];
+  turnForm = new FormGroup({
+    id: new FormControl<number>(null),
+    initDate: new FormControl<string>(''),
+    endDate: new FormControl<string>(''),
+    initHour: new FormControl<string>(''),
+    endHour: new FormControl<string>(''),
+    user: new FormControl<UserDTO>({} as UserDTO),
+    group: new FormControl<GroupDTO>({} as GroupDTO),
+  });
 
-  constructor(private router: Router, private turnEvents: TurnEventsService) {
+  constructor(
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly groupService: GroupService,
+    private readonly turnService: TurnService,
+    private turnEvents: TurnEventsService
+  ) {
     this.initForm();
-    this.loadUsersAndGroups();
+  }
+
+  ngOnInit(): void {
+    this.subscribeToUsersGet();
+  }
+
+  private subscribeToUsersGet() {
+    this.userService.getUsers().pipe(
+      first()
+    ).subscribe(data => {
+      this.users = data;
+    });
+    this.groupService.getGroups().pipe(
+      first()
+    ).subscribe(data => {
+      this.groups = data;
+    });
+
   }
 
   private initForm() {
-    console.log('entrando');
-  }
+    console.log("entrando");
 
-  loadUsersAndGroups() {
-    this.http
-      .get<any[]>('http://localhost:8080/api/users')
-      .subscribe((users) => {
-        this.users = users.map((u) => ({
-          ...u,
-          fullName: `${u.name} ${u.lastName}`,
-        }));
-      });
-    this.http.get<any[]>('http://localhost:8080/api/groups').subscribe((groups) => {
-      this.groups = groups;
-      console.log('Grupos recibidos:', this.groups);
-    });
   }
 
   open() {
@@ -85,28 +79,24 @@ export class TurnComponent {
     this.visible = true;
   }
 
-  /** Opcional: cerrar desde TS */
-  hideDialog() {
-    this.visible = false;
-  }
-
   onRegister() {
     const formData = this.turnForm.value;
     this.visible = false;
     this.showModal = false;
     const payload = {
+      id: formData.id,
       initDate: formData.initDate,
       endDate: formData.endDate,
-      userName: formData.userName,
+      userName: `${formData.user.name} ${formData.user.lastName}`,
       initHour: formData.initHour,
       endHour: formData.endHour,
-      userId: formData.userId,
-      groupId: formData.groupId,
-    };
+      userId: +formData.user?.id,
+      groupId: +formData.group?.id
+    } as TurnDTO;
 
     this.turnSaved.emit(payload);
 
-    this.http.post('http://localhost:8080/api/turn', payload).subscribe({
+    this.turnService.registrarTurno(payload).subscribe({
       next: (res) => {
         console.log('Registro exitoso:', res);
         alert('Turno registrado correctamente');
@@ -115,7 +105,7 @@ export class TurnComponent {
       error: (err) => {
         console.error('Error en el registro de turno:', err);
         alert('Hubo un error al registrar turno: ' + err.error.message);
-      },
+      }
     });
   }
 }

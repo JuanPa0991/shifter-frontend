@@ -1,37 +1,36 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
-import { inject } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router ,RouterLink} from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { first, Subject } from 'rxjs';
+import { UserDTO, UserService } from '../../services/user.service';
+import { GroupDTO, GroupService } from '../../services/group.service';
+import { TurnService } from '../../services/turn.service';
 import { DropdownModule } from 'primeng/dropdown';
-import { DropDownGroupsComponent } from "../../components/drop-down-groups/drop-down-groups.component";
-import { UserDropDownComponent } from '../../components/user-drop-down/user-drop-down.component';
 
 
 @Component({
   selector: 'app-book-turn',
-  imports: [DialogModule, ReactiveFormsModule, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule, DropdownModule, DropDownGroupsComponent, UserDropDownComponent],
+  imports: [DialogModule, ReactiveFormsModule, StyleClassModule, ButtonModule, FloatLabelModule, InputTextModule, DropdownModule, FormsModule],
   templateUrl: './book-turn.component.html',
   styleUrl: './book-turn.component.css'
 })
-export class BookTurnComponent {
+export class BookTurnComponent implements OnInit, OnDestroy {
 
-  private http = inject(HttpClient);
-  private authService = inject(AuthService);
+  users: UserDTO[] = [];
+  groups: GroupDTO[] = [];
+  private destroy$ = new Subject<void>()
 
   bookTurnForm = new FormGroup({
     initDate: new FormControl(''),
     endDate: new FormControl(''),
-    userName: new FormControl(''),
+    userName: new FormControl(),
     initHour: new FormControl(''),
     endHour: new FormControl(''),
-    groupName: new FormControl(''),
+    groupName: new FormControl(),
     userId: new FormControl(''),
     groupId: new FormControl('')
   })
@@ -39,28 +38,37 @@ export class BookTurnComponent {
   visible = false;
   showModal = false;
 
-  users: any[] = [];
-  groups: any[] = [];
-
-  constructor(private router: Router) {
-     this.initForm();
-     this.loadUsersAndGroups();
+  constructor(
+    private readonly userService: UserService,
+    private readonly groupService: GroupService,
+    private readonly turnService: TurnService) {
+    this.initForm();
   }
 
-  private initForm () {
+  ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
+  }
+
+  ngOnInit(): void {
+    this.subscribeToUsersGet()
+  }
+
+  private subscribeToUsersGet() {
+    this.userService.getUsers().pipe(
+      first()
+    ).subscribe(data => {
+      this.users = data;
+    })
+    this.groupService.getGroups().pipe(
+      first()
+    ).subscribe(data => {
+      this.groups = data;
+    })
+  }
+
+  private initForm() {
     console.log("entrando")
-  }
-
-  loadUsersAndGroups() {
-    this.http.get<any[]>('http://localhost:8080/api/users').subscribe(users => {
-      this.users = users.map(u => ({
-        ...u,
-        fullName: `${u.name} ${u.lastName}`
-      }));
-    });
-    this.http.get<any[]>('http://localhost:8080/api/groups').subscribe(groups => {
-      this.groups = groups;
-    });
   }
 
   open() {
@@ -77,7 +85,20 @@ export class BookTurnComponent {
     this.visible = false;
   }
 
-  onBookTurn () {
+  onBookTurn() {
+    const formData = this.bookTurnForm.value;
+    this.visible = false;
+    this.showModal = false;
+    const payload = {
+      initDate: formData.initDate,
+      endDate: formData.endDate,
+      userName: formData.userName,
+      initHour: formData.initHour,
+      endHour: formData.endHour,
+      groupName: formData.groupName,
+      userId: formData.userName?.id,
+      groupId: formData.groupName?.id
+    };
 
   }
 }
