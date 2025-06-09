@@ -23,6 +23,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import { TurnService } from '../../services/turn.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-create-quadrant',
@@ -59,7 +60,7 @@ export class CreateQuadrantComponent implements AfterViewInit {
   loading: boolean = false;
   turns: any[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private turnService:TurnService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private turnService: TurnService) { }
 
   ngAfterViewInit() {
     // Verificar que los componentes están disponibles
@@ -75,23 +76,24 @@ export class CreateQuadrantComponent implements AfterViewInit {
     // Obtenemos las fechas introducidas en el select-dates-panel
     this.initDate = this.route.snapshot.queryParams['initDate']
     this.endDate = this.route.snapshot.queryParams['endDate'];
-    this.loadTurns();
+    this.loadTurnsByFilterDates();
   }
 
-loadTurns() {
-  if (this.initDate && this.endDate) {
-    this.turnService.filterTurns(this.initDate, this.endDate).subscribe((turns) => {
-      this.turns = turns;
-      console.log('Turnos recibidos:', this.turns);
-      setTimeout(() => {
-        console.log('Enviando turnos al calendario:', this.turns);
-        this.calendarComponent?.setTurnsFromBackend(this.turns);
-      }, 1000)
-    }, error => {
-      console.error('Error al cargar los turnos:', error);
-    });
+  loadTurnsByFilterDates() {
+    if (this.initDate && this.endDate) {
+      const filters = { initDate: this.initDate, endDate: this.endDate }
+      this.turnService.filterTurns(filters).subscribe((turns) => {
+        this.turns = turns;
+        console.log('Turnos recibidos:', this.turns);
+        setTimeout(() => {
+          console.log('Enviando turnos al calendario:', this.turns);
+          this.calendarComponent?.setTurnsFromBackend(this.turns);
+        }, 1000)
+      }, error => {
+        console.error('Error al cargar los turnos:', error);
+      });
+    }
   }
-}
 
   onDateSelected(selectInfo: any) {
     console.log('Fecha seleccionada: ', selectInfo);

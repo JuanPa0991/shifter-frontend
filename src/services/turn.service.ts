@@ -13,6 +13,12 @@ export interface TurnDTO {
   groupId: number;
 }
 
+export type TurnFilterTypes = 'initDate' | 'endDate' | 'userId'
+
+export type TurnFilter = {
+  [key in TurnFilterTypes]?: any;
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -26,9 +32,8 @@ export class TurnService {
     return this.http.get<TurnDTO[]>(`${ this.apiUrl }/turns/all`);
   }
 
-    filterTurns(initDate: string, endDate: string): Observable<any[]> {
-    const body = { initDate, endDate };
-    return this.http.post<any[]>(`${this.apiUrl}/turns/filter`, body);
+  filterTurns(filters: TurnFilter): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/turns/filter`, filters);
   }
 
   registrarTurno(payload: TurnDTO): Observable<TurnDTO[]> {

@@ -22,7 +22,7 @@
     </div>
   </header>
 
-  <nav class="main-nav">
+  <nav class="main-nav" *ngIf="!isNotAdminUser">
     <div class="nav-item" [class.active]="activeMenu === 'cuadrantes'" (click)="toggleMenu('cuadrantes')">
       <i class="pi pi-calendar"></i>
       <span>Cuadrantes</span>
@@ -43,8 +43,8 @@
 
   <main class="admin-content">
     <div *ngIf="!activeMenu" class="panel-section welcome-section">
-      <h2>Panel de administración</h2>
-      <p class="welcome-message">Selecciona una opción del menú para comenzar</p>
+      <h2>Panel de {{ isNotAdminUser ? 'usuario' : 'administracion'}}</h2>
+      <p class="welcome-message" *ngIf="!isNotAdminUser">Selecciona una opción del menú para comenzar</p>
       <div class="dashboard-row">
         <div class="calendar-panel">
           <app-calendar></app-calendar>

@@ -10,6 +10,7 @@ import { TurnComponent } from '../../pages/turn/turn.component';
 import esLocale from '@fullcalendar/core/locales/es';
 import { TurnService } from '../../services/turn.service';
 import { delay, first } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calendar',
@@ -21,6 +22,7 @@ import { delay, first } from 'rxjs';
 export class CalendarComponent implements OnInit, OnChanges {
   @Input() initDate?: string;
   @Input() endDate?: string;
+  @Input() userId?: number;
   @ViewChild(AddCalendarEventComponent) addEventDialog!: AddCalendarEventComponent;
   @ViewChild('calendar') calendar: any;
   @ViewChild('turnDialog') turnDialog!: TurnComponent;
@@ -48,13 +50,17 @@ export class CalendarComponent implements OnInit, OnChanges {
     locale: esLocale
   });
 
+  protected isNotAdminUser = false;
+
   constructor(
-    private readonly turnService: TurnService
+    private readonly turnService: TurnService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
+    this.isNotAdminUser = !!this.route.snapshot.queryParams['userId']
     this.updateCalendarRange();
-    this.loadTurns();
+    this.loadTurns(this.route.snapshot.queryParams['userId']);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -182,8 +188,9 @@ export class CalendarComponent implements OnInit, OnChanges {
     return date.toISOString().split('T')[0];
   }
 
-  private loadTurns() {
-    this.turnService.getTurns().pipe(
+  private loadTurns(userId: number) {
+    const turnsRequest$ = !!userId ? this.turnService.filterTurns({ userId }) : this.turnService.getTurns();
+    turnsRequest$.pipe(
       delay(1000),
       first()
     ).subscribe(data => {

@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface LoginResponse {
+  userId: number;
   name: string;
   token: string;
+  isAdmin: boolean;
 }
 
 interface LoginRequest {

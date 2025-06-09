@@ -8,7 +8,7 @@ import { TurnComponent } from '../turn/turn.component';
 import { CreateNewUserComponent } from '../create-new-user/create-new-user.component';
 import { BookTurnComponent } from '../book-turn/book-turn.component';
 import { SelectDatesPanelComponent } from '../select-dates-panel/select-dates-panel.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { UserListComponent } from '../user-list/user-list.component';
 import { TurnListComponent } from '../turn-list/turn-list.component';
@@ -53,7 +53,12 @@ export class AdminPanelComponent {
   showTurnList = false;
   showGroupList = false;
 
-  constructor(private router: Router) {}
+  protected isNotAdminUser: boolean = false;
+
+  constructor(
+    private readonly route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   // metodo para llamar al metodo del componente group que renderiza el popup
   openGroupDialog() {
@@ -98,6 +103,7 @@ export class AdminPanelComponent {
   }
 
   ngOnInit() {
+    this.isNotAdminUser = !!this.route.snapshot.queryParams['userId']
     const userName = localStorage.getItem('userName');
     if (userName) {
       this.userName = userName;

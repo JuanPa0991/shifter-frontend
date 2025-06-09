@@ -52,7 +52,8 @@ export class LoginComponent {
           // Guardamos el token y el nombre recibido
           this.authService.saveToken(response.token);
           localStorage.setItem('userName', response.name); // <-- Añade esta línea
-          this.router.navigate(['/adminpannel']);
+          const queryParams = !response.isAdmin ? { userId: response.userId } : {}
+          this.router.navigate(['/adminpannel'], { queryParams });
         },
         error: (error) => { // Si las credenciales no son correctas muestra un mensaje de error
           this.errorMessage = "Error en el inicio de sesión. Por favor, verifica tus credenciales"
