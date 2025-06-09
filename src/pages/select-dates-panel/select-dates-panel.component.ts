@@ -95,7 +95,7 @@ export class SelectDatesPanelComponent {
 
     if (initDate && endDate) {
       this.showSelectDatesPanel = false;
-      this.router.navigate(['/create-quadrant', { initDate, endDate }]); // Navegar con las fechas
+      this.router.navigate(['/create-quadrant'], { queryParams: { initDate, endDate }}); // Navegar con las fechas
     } else {
       alert('Por favor, introduce ambas fechas');
     }

@@ -59,10 +59,11 @@ export class RegisterComponent {
     };
 
     this.http.post('http://localhost:8080/api/register', payload).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         console.log('Registro exitoso:', res);
         alert('Usuario registrado correctamente');
         this.authService.saveToken(payload.name as string);
+        localStorage.setItem('userName', res.name);
         this.router.navigate(['/adminpannel']);
  
       },

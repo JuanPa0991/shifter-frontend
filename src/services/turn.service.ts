@@ -26,6 +26,11 @@ export class TurnService {
     return this.http.get<TurnDTO[]>(`${ this.apiUrl }/turns/all`);
   }
 
+    filterTurns(initDate: string, endDate: string): Observable<any[]> {
+    const body = { initDate, endDate };
+    return this.http.post<any[]>(`${this.apiUrl}/turns/filter`, body);
+  }
+
   registrarTurno(payload: TurnDTO): Observable<TurnDTO[]> {
     return this.http.post<TurnDTO[]>(`${ this.apiUrl }/turn`, payload);
   }

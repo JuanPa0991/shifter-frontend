@@ -11,6 +11,15 @@
 
     <!-- Contenido Principal -->
     <main class="main-content">
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <div class="button-group">
+                <p-button label="Generar Cuadrante" icon="pi pi-check" [loading]="loading" (onClick)="confirmQuadrant()"
+                    styleClass="generate-button">
+                </p-button>
+            </div>
+        </div>
+
         <!-- Calendario -->
         <div class="calendar-wrapper" id="calendar-capture">
             <app-calendar
@@ -19,24 +28,6 @@
                 (turnSaved)="onTurnSaved($event)"
             ></app-calendar>
         </div>
-
-        <!-- Botones de acción -->
-        <div class="action-buttons">
-            <div class="button-group">
-                <p-button label="Crear Usuario" icon="pi pi-user-plus" (onClick)="openCreateUser()">
-                </p-button>
-                <p-button label="Buscar Usuarios" icon="pi pi-search" (onClick)="openUserManager()">
-                </p-button>
-                <p-button label="Crear Grupo" icon="pi pi-users" (onClick)="openCreateGroup()">
-                </p-button>
-                <p-button label="Buscar Grupos" icon="pi pi-search" (onClick)="openGroupManager()">
-                </p-button>
-                <p-button label="Generar Cuadrante" icon="pi pi-check" [loading]="loading" (onClick)="confirmQuadrant()"
-                    styleClass="generate-button">
-                </p-button>
-            </div>
-        </div>
-
     </main>
 
     <!-- Componentes de diálogo -->

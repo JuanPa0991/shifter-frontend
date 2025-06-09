@@ -377,7 +377,7 @@ h2 {
 .calendar-panel {
     flex: 1 1 0;
     min-width: 400px;
-    max-width: 900px;
+    max-width: 95vw;
     background: white;
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-sm);
@@ -391,7 +391,7 @@ h2 {
 .calendar-panel app-calendar {
     width: 100%;
     min-width: 350px;
-    max-width: 800px;
+    max-width: 95vw;
 }
 
 /* Responsive: apila en columna en pantallas pequeñas */

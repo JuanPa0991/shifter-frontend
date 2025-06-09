@@ -41,8 +41,7 @@ export class AdminPanelComponent {
   @ViewChild(TurnComponent) turnComp!: TurnComponent; // Instancia de componenete turn parapoder usar el metodo de renderizacion de popup
   @ViewChild(CreateNewUserComponent) userComp!: CreateNewUserComponent; // Instancia de componenete user parapoder usar el metodo de renderizacion de popup
   @ViewChild(BookTurnComponent) bookTurnComp!: BookTurnComponent; // Instancia de componenete bookTurn parapoder usar el metodo de renderizacion de popup
-  @ViewChild(SelectDatesPanelComponent)
-  selectDatesPanel!: SelectDatesPanelComponent; // Instancia de componente selectDates para poder usar el metodo de renderizacion de popup
+  @ViewChild(SelectDatesPanelComponent) selectDatesPanel!: SelectDatesPanelComponent; // Instancia de componente selectDates para poder usar el metodo de renderizacion de popup
   @ViewChild(UserSettingsComponent) userSettingsComp!: UserSettingsComponent;
 
   private authService = inject(AuthService); // Creando una instancia de Authservice para poder usar su metodos

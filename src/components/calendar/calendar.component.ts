@@ -6,8 +6,10 @@ import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { AddCalendarEventComponent } from '../add-calendar-event/add-calendar-event.component';
-import { TurnComponent } from '../../pages/turn/turn.component'; // Asegúrate de la ruta
-import esLocale from '@fullcalendar/core/locales/es'; // Añade esta línea
+import { TurnComponent } from '../../pages/turn/turn.component';
+import esLocale from '@fullcalendar/core/locales/es';
+import { TurnService } from '../../services/turn.service';
+import { delay, first } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -43,11 +45,16 @@ export class CalendarComponent implements OnInit, OnChanges {
     eventsSet: this.handleEvents.bind(this),
     eventColor: '#378006',
     eventDisplay: 'block',
-    locale: esLocale // <-- Añade esta línea
+    locale: esLocale
   });
+
+  constructor(
+    private readonly turnService: TurnService
+  ) {}
 
   ngOnInit() {
     this.updateCalendarRange();
+    this.loadTurns();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -56,7 +63,6 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   updateCalendarRange() {
     if (this.initDate && this.endDate) {
-      // FullCalendar espera que end sea el día siguiente al último visible
       const end = new Date(this.endDate);
       end.setDate(end.getDate() + 1);
       const endStr = end.toISOString().split('T')[0];
@@ -78,7 +84,6 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     if (this.initDate && this.endDate) {
-      // Normaliza fechas a solo día (sin hora)
       const start = new Date(selectInfo.start);
       start.setHours(0, 0, 0, 0);
       const init = new Date(this.initDate);
@@ -86,7 +91,6 @@ export class CalendarComponent implements OnInit, OnChanges {
       const end = new Date(this.endDate);
       end.setHours(0, 0, 0, 0);
 
-      // Permite seleccionar desde el primer hasta el último día (inclusive)
       if (start < init || start > end) {
         return;
       }
@@ -121,11 +125,9 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   addTurnEvent(turn: any) {
-    // Asegúrate de tener la referencia al calendario
     const calendarApi = this.calendar?.getApi?.();
     if (!calendarApi) return;
 
-    // Construye el título con los datos del turno
     let title = '';
     if (turn.userName) title += turn.userName;
     if (turn.groupId) title += (title ? ' - ' : '') + 'Grupo ' + turn.groupId;
@@ -136,9 +138,9 @@ export class CalendarComponent implements OnInit, OnChanges {
     calendarApi.addEvent({
       title: title.trim(),
       start: turn.initDate,
-      end: turn.endDate ? this.addOneDay(turn.endDate) : undefined,
+      end: turn.endDate || turn.initDate, // Para evento de un solo día
       allDay: true,
-      backgroundColor: '#2196F3', // Personaliza el color si lo deseas
+      backgroundColor: '#2196F3',
       borderColor: '#1976D2'
     });
   }
@@ -148,13 +150,12 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   setTurnsFromBackend(turns: any[]) {
+    console.log('Dentro de setTurnsFromBackend:', turns);
     const calendarApi = this.calendar?.getApi?.();
     if (!calendarApi) return;
 
-    // Limpia eventos previos
     calendarApi.removeAllEvents();
 
-    // Añade los turnos recibidos
     for (const turn of turns) {
       let title = '';
       if (turn.userName) title += turn.userName;
@@ -162,10 +163,11 @@ export class CalendarComponent implements OnInit, OnChanges {
       if (turn.initHour || turn.endHour) {
         title += (title ? '\n' : '') + `${turn.initHour || ''} - ${turn.endHour || ''}`;
       }
+
       calendarApi.addEvent({
         title: title.trim(),
         start: turn.initDate,
-        end: turn.endDate ? this.addOneDay(turn.endDate) : undefined,
+        end: turn.endDate || turn.initDate, // Evento de un solo día
         allDay: true,
         backgroundColor: '#2196F3',
         borderColor: '#1976D2'
@@ -173,11 +175,20 @@ export class CalendarComponent implements OnInit, OnChanges {
     }
   }
 
-  // Utilidad para sumar un día a la fecha (formato YYYY-MM-DD)
+  // Ya no se usa, pero se mantiene por si decides volver a eventos multiday
   addOneDay(dateStr: string): string {
     const date = new Date(dateStr);
     date.setDate(date.getDate() + 1);
     return date.toISOString().split('T')[0];
+  }
+
+  private loadTurns() {
+    this.turnService.getTurns().pipe(
+      delay(1000),
+      first()
+    ).subscribe(data => {
+      this.setTurnsFromBackend(data);
+    })
   }
 
   private getEventColor(turnType: string): string {
@@ -190,7 +201,6 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   getAllTurns(): any[] {
-    // Devuelve los eventos actuales en formato array
     const calendarApi = this.calendar?.getApi?.();
     if (!calendarApi) return [];
     interface TurnEvent {
