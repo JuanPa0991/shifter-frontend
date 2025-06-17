@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { first, Subject, takeUntil } from 'rxjs';
 import { TurnDTO, TurnService } from '../../services/turn.service';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-turn',
@@ -19,11 +20,14 @@ import { TurnDTO, TurnService } from '../../services/turn.service';
   templateUrl: './turn.component.html',
   styleUrl: './turn.component.css'
 })
-export class TurnComponent implements OnInit {
+export class TurnComponent implements OnInit, OnDestroy {
   users: UserDTO[] = [];
   groups: GroupDTO[] = [];
   visible = false;
   showModal = false;
+
+  protected isSaveDisabled = true;
+  private destroy$ = new Subject<void>();
 
   @Output() turnSaved = new EventEmitter<any>();
 
@@ -33,8 +37,8 @@ export class TurnComponent implements OnInit {
     endDate: new FormControl<string>(''),
     initHour: new FormControl<string>(''),
     endHour: new FormControl<string>(''),
-    user: new FormControl<UserDTO>({} as UserDTO),
-    group: new FormControl<GroupDTO>({} as GroupDTO),
+    user: new FormControl<UserDTO>(null),
+    group: new FormControl<GroupDTO>(null),
   });
 
   constructor(
@@ -49,6 +53,12 @@ export class TurnComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToUsersGet();
+    this.subscribeToFormChanges();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private subscribeToUsersGet() {
@@ -62,7 +72,14 @@ export class TurnComponent implements OnInit {
     ).subscribe(data => {
       this.groups = data;
     });
+  }
 
+  private subscribeToFormChanges() {
+    this.turnForm.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((values) => {
+      this.isSaveDisabled = !values.group && !values.user;
+    })
   }
 
   private initForm() {
@@ -87,17 +104,24 @@ export class TurnComponent implements OnInit {
       id: formData.id,
       initDate: formData.initDate,
       endDate: formData.endDate,
-      userName: `${formData.user.name} ${formData.user.lastName}`,
+      userName: `${formData.user?.name} ${formData.user?.lastName}`,
       initHour: formData.initHour,
       endHour: formData.endHour,
       userId: +formData.user?.id,
       groupId: +formData.group?.id
     } as TurnDTO;
 
-    this.turnSaved.emit(payload);
+    const request = !payload.groupId
+      ? this.turnService.registrarTurno(payload)
+      : this.turnService.registrarTurnoMasivo(payload);
 
-    this.turnService.registrarTurno(payload).subscribe({
+    request.subscribe({
       next: (res) => {
+        if (!payload.groupId) {
+          this.turnSaved.emit([res]);
+        } else {
+          this.turnSaved.emit(res);
+        }
         console.log('Registro exitoso:', res);
         alert('Turno registrado correctamente');
         this.turnEvents.notifyTurnCreated(); // Notifica a los suscriptores

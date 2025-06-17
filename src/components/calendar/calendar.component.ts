@@ -8,7 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { AddCalendarEventComponent } from '../add-calendar-event/add-calendar-event.component';
 import { TurnComponent } from '../../pages/turn/turn.component';
 import esLocale from '@fullcalendar/core/locales/es';
-import { TurnService } from '../../services/turn.service';
+import { TurnDTO, TurnService } from '../../services/turn.service';
 import { delay, first } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   @Output() turnSaved = new EventEmitter<any>();
 
-  calendarVisible = signal(true); 
+  calendarVisible = signal(true);
   currentEvents = signal<EventApi[]>([]);
 
   calendarOptions = signal<CalendarOptions>({
@@ -112,7 +112,11 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   handleEventClick(clickInfo: EventClickArg) {
     if (confirm(`¿Deseas eliminar el turno '${clickInfo.event.title}'?`)) {
-      clickInfo.event.remove();
+      this.turnService.deleteTurn(clickInfo.event.extendedProps['id']).pipe(
+        first()
+      ).subscribe(() => {
+        clickInfo.event.remove();
+      })
     }
   }
 
@@ -126,33 +130,41 @@ export class CalendarComponent implements OnInit, OnChanges {
       title: `${eventData.turn} - ${eventData.group || eventData.user}`,
       start: eventData.startDate,
       end: eventData.endDate,
+      extendedProps: {
+        id: eventData.id
+      },
       backgroundColor: this.getEventColor(eventData.turn)
     });
   }
 
-  addTurnEvent(turn: any) {
+  addTurnEvent(turns: TurnDTO[]) {
     const calendarApi = this.calendar?.getApi?.();
     if (!calendarApi) return;
 
-    let title = '';
-    if (turn.userName) title += turn.userName;
-    if (turn.groupId) title += (title ? ' - ' : '') + 'Grupo ' + turn.groupId;
-    if (turn.initHour || turn.endHour) {
-      title += (title ? '\n' : '') + `${turn.initHour || ''} - ${turn.endHour || ''}`;
-    }
+    turns.forEach(turn => {
+      let title = '';
+      if (turn.userName) title += turn.userName;
+      if (turn.groupId) title += (title ? ' - ' : '') + 'Grupo ' + turn.groupId;
+      if (turn.initHour || turn.endHour) {
+        title += (title ? '\n' : '') + `${turn.initHour || ''} - ${turn.endHour || ''}`;
+      }
 
-    calendarApi.addEvent({
-      title: title.trim(),
-      start: turn.initDate,
-      end: turn.endDate || turn.initDate, // Para evento de un solo día
-      allDay: true,
-      backgroundColor: '#2196F3',
-      borderColor: '#1976D2'
-    });
+      calendarApi.addEvent({
+        title: title.trim(),
+        start: turn.initDate,
+        end: turn.endDate || turn.initDate, // Para evento de un solo día
+        allDay: true,
+        extendedProps: {
+          id: turn.id
+        },
+        backgroundColor: '#2196F3',
+        borderColor: '#1976D2'
+      });
+    })
   }
 
-  onTurnDialogSaved(turn: any) {
-    this.addTurnEvent(turn);
+  onTurnDialogSaved(turns: TurnDTO[]) {
+    this.addTurnEvent(turns);
   }
 
   setTurnsFromBackend(turns: any[]) {
@@ -175,6 +187,9 @@ export class CalendarComponent implements OnInit, OnChanges {
         start: turn.initDate,
         end: turn.endDate || turn.initDate, // Evento de un solo día
         allDay: true,
+        extendedProps: {
+          id: turn.id
+        },
         backgroundColor: '#2196F3',
         borderColor: '#1976D2'
       });

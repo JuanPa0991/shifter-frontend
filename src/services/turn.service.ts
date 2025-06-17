@@ -40,6 +40,10 @@ export class TurnService {
     return this.http.post<TurnDTO[]>(`${ this.apiUrl }/turn`, payload);
   }
 
+  registrarTurnoMasivo(payload: TurnDTO): Observable<TurnDTO[]> {
+    return this.http.post<TurnDTO[]>(`${ this.apiUrl }/turns/masivo`, payload);
+  }
+
   deleteTurn(id: number) {
     return this.http.delete(`${ this.apiUrl }/turns/${ id }`);
   }

@@ -62,7 +62,7 @@
       <input pInputText id="endHour" formControlName="endHour" type="time"/>
     </div>
     <div class="form-actions">
-      <p-button label="Guardar" icon="pi pi-save" (click)="onRegister()"></p-button>
+      <p-button label="Guardar" [disabled]="isSaveDisabled" icon="pi pi-save" (click)="onRegister()"></p-button>
     </div>
   </form>
 </p-dialog>

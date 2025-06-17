@@ -208,6 +208,6 @@ export class CreateQuadrantComponent implements AfterViewInit {
   }
 
   onTurnSaved(turn: any) {
-    this.calendarComponent.addTurnEvent(turn);
+    this.calendarComponent.addTurnEvent([turn]);
   }
 }
